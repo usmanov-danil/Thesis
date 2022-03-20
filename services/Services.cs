@@ -11,11 +11,7 @@ namespace Aggregator.services
     public class Services
     {
         // Drawwing
-        public void DrawWellProfile3D(Data data)
-        {
-           // return Charting.Draw3D(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
-        }
-
+        
         public PlotModel DrawWellProfileXY(Data data)
         {
             PlotModel model = Charting.Draw2D(data.X.ToArray(), data.Y.ToArray(), OxyColors.Red);
@@ -39,6 +35,11 @@ namespace Aggregator.services
         public void DrawWellModel3D(Data data)
         {
             Helix.Draw3DModel(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
+        }
+
+        public void DrawWellProfile3D(Data data)
+        {
+            Helix.Draw3DScatter(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
         }
 
         // Data services

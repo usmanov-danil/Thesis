@@ -7,12 +7,6 @@ namespace Aggregator.communicators
     public class Charting : PlotComunicator
     {
 
-
-        public static void Draw3D(double[] x, double[] y, double[] z)
-        {
-            throw new NotImplementedException();
-        }
-
         public static PlotModel Draw2D(double[] x, double[] y, OxyColor color)
         {
            PlotModel model = new PlotModel();

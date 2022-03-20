@@ -8,13 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HelixToolkit" Version="2.20.2" />
+    <PackageReference Include="HelixToolkit.Wpf" Version="2.20.2" />
     <PackageReference Include="OxyPlot.Core" Version="2.1.0" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="views\" />
   </ItemGroup>
 
 </Project>

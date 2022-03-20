@@ -4,7 +4,6 @@ namespace Aggregator.communicators
 {
     public interface PlotComunicator
     {
-        public static void Draw3D(double[] x, double[] y, double[] z) { }//return new PlotModel(); }
         public static PlotModel Draw2D(double[] x, double[] y) { return new PlotModel(); }
 
     }
@@ -12,6 +11,6 @@ namespace Aggregator.communicators
     public interface GraphicComunicator
     {
         public static void Draw3DModel(double[] x, double[] y, double[] z) { }
-        public static void Draw2DModel(double[] x, double[] y) { }
+        public static void Draw3DScatter(double[] x, double[] y, double[] z) { }
     }
 }
