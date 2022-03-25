@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media.Media3D;
 
 namespace Aggregator.services
 {
@@ -32,9 +33,9 @@ namespace Aggregator.services
             return model;
         }
 
-        public void DrawWellModel3D(Data data)
+        public Point3D[,] DrawWellModel3D(Data data)
         {
-            Helix.Draw3DModel(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
+           return Helix.Draw3DModel(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
         }
 
         public void DrawWellProfile3D(Data data)

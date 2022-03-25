@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
+using System.Windows;
 
 namespace Aggregator.communicators
 {
@@ -14,9 +16,23 @@ namespace Aggregator.communicators
             throw new NotImplementedException();
         }
 
-        public static void Draw3DModel(double[] x, double[] y, double[] z)
+        public static Point3D[,] Draw3DModel(double[] x, double[] y, double[] z)
         {
-            throw new NotImplementedException();
+
+            Point3D[,] data = new Point3D[x.Length, y.Length];
+            for (int i = 0; i < x.Length; i++)
+            {
+                for (int j = 0; j < y.Length; j++)
+                {
+                    int z_index = (int)Math.Round((double)((i + j) / 2));
+                    data[i, j] = new Point3D(x[i], y[j], z[z_index]);
+                }
+            }
+            return data;
         }
+
+        
+
+    
     }
 }
