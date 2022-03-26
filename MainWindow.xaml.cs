@@ -17,15 +17,15 @@ namespace Aggregator
     public partial class MainWindow : Window
     {
         private Services services;
-        private SurfacePlotModel mySurfacePlotModel;
+        private SurfacePlotModel SurfacePlotModel;
         private Data? data = null;
         private string delimiter = ";";
         public MainWindow()
         {
             InitializeComponent();
             this.services = new Services();
-            mySurfacePlotModel = new SurfacePlotModel();
-            mySurfacePlotView.DataContext = mySurfacePlotModel;
+            SurfacePlotModel = new SurfacePlotModel();
+            mySurfacePlotView.DataContext = SurfacePlotModel;
         }
 
         private void button_csv_Click(object sender, RoutedEventArgs e)
@@ -45,21 +45,23 @@ namespace Aggregator
                 ViewModel.Chart2Model = this.services.DrawWellProfileXZ(this.data);
                 ViewModel.Chart3Model = this.services.DrawWellProfileXY(this.data);
 
-                mySurfacePlotModel.Title = "3D surface model";
+                SurfacePlotModel.Title = "3D surface model";
                 
-                mySurfacePlotModel.PlotData(this.services.DrawWellModel3D(this.data));
-                mySurfacePlotModel.ShowSurfaceMesh = true;
-                mySurfacePlotModel.ShowContourLines = true;
-                mySurfacePlotModel.ShowMiniCoordinates = true;
-                mySurfacePlotModel.ShowCoordinateSystem = true;
+                SurfacePlotModel.PlotData(this.services.DrawWellModel3D(this.data));
+                SurfacePlotModel.ShowSurfaceMesh = true;
+                SurfacePlotModel.ShowContourLines = true;
+                SurfacePlotModel.ShowMiniCoordinates = true;
+                SurfacePlotModel.ShowCoordinateSystem = true;
                 mySurfacePlotView.ShowMiniCoordinates = true;
 
                 mySurfacePlotView.hViewport.ZoomExtents();
-                PlotData(this.data);
+
+                plot.AddPoints(this.services.DrawWellProfile3D(this.data), Colors.Red, 1.5);
+               // plot.BoundingBox = new Rect3D(minX, minY, minZ, maxX, maxY, maxZ);
                 plot.CreateElements();
                 plot.ZoomExtents();
 
-                //mySurfacePlotModel.DataPoints = this.services.DrawWellModel3D(this.data);
+                //SurfacePlotModel.DataPoints = this.services.DrawWellModel3D(this.data);
                 //mySurfacePlotView.DataPoints = this.services.DrawWellModel3D(this.data);
 
 
@@ -72,31 +74,6 @@ namespace Aggregator
         }
 
 
-    
-
-        private void PlotData(Data data)
-        {
-            double[] x = data.X.ToArray();
-            double[] y = data.Y.ToArray();
-            double[] z = data.Z.ToArray();
-            double minX = 100000;
-            double minY = 100000;
-            double minZ = 100000;
-            double maxX = -100000;
-            double maxY = -100000;
-            double maxZ = -100000;
-            for (int i = 0; i < data.Length(); i++)
-            {
-                plot.AddPoint(new Point3D(x[i], y[i], z[i]), Colors.Red, 1.5);
-                minX = Math.Min(minX, x[i]);
-                minY = Math.Min(minY, y[i]);
-                minZ = Math.Min(minZ, z[i]);
-                maxX = Math.Max(maxX, x[i]);
-                maxY = Math.Max(maxY, y[i]);
-                maxZ = Math.Max(maxZ, z[i]);
-            }
-            plot.BoundingBox = new Rect3D(minX, minY, minZ, maxX, maxY, maxZ);
-        }
 
 
 

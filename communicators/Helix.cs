@@ -11,9 +11,12 @@ namespace Aggregator.communicators
 {
     public class Helix : GraphicComunicator
     {
-        public static void Draw3DScatter(double[] x, double[] y, double[] z) 
+        public static Point3D[] Draw3DScatter(double[] x, double[] y, double[] z) 
         {
-            throw new NotImplementedException();
+            Point3D[] data = new Point3D[x.Length];
+            for (int i = 0; i < x.Length; i++)
+                data[i] = new Point3D(x[i], y[i], z[i]);
+            return data;
         }
 
         public static Point3D[,] Draw3DModel(double[] x, double[] y, double[] z)

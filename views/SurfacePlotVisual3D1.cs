@@ -27,7 +27,7 @@ using System.Windows.Media.Media3D;
 
 namespace Aggregator
 {
-    public class HelixPlot : HelixViewport3D
+    public class HelixPlot2 : HelixViewport3D
     {
         private TruncatedConeVisual3D? marker;
         private BillboardTextVisual3D? coords;
@@ -39,7 +39,7 @@ namespace Aggregator
         private Vector3D delta0;
 
 
-        public HelixPlot()
+        public HelixPlot2()
             : base()
         {
             ZoomExtentsWhenLoaded = true;
@@ -217,7 +217,7 @@ namespace Aggregator
             CreateElements();
         }
 
- 
+
         public void NewTrace(Point3D point, Color color, double thickness = 1)
         {
             path = new LinesVisual3D();

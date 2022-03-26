@@ -38,9 +38,9 @@ namespace Aggregator.services
            return Helix.Draw3DModel(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
         }
 
-        public void DrawWellProfile3D(Data data)
+        public Point3D[] DrawWellProfile3D(Data data)
         {
-            Helix.Draw3DScatter(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
+            return Helix.Draw3DScatter(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
         }
 
         // Data services
