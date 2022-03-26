@@ -12,7 +12,7 @@ namespace Aggregator.communicators
     public class Helix : GraphicComunicator
     {
         public static void Draw3DScatter(double[] x, double[] y, double[] z) 
-        { 
+        {
             throw new NotImplementedException();
         }
 

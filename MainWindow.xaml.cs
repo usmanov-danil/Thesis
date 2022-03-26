@@ -1,24 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using OxyPlot;
 using Aggregator.models;
 using Aggregator.services;
 using Microsoft.Win32;
-using Aggregator.communicators;
 using WPFSurfacePlot3D;
+using System.Windows.Media.Media3D;
 
 namespace Aggregator
 {
@@ -64,8 +53,12 @@ namespace Aggregator
                 mySurfacePlotModel.ShowMiniCoordinates = true;
                 mySurfacePlotModel.ShowCoordinateSystem = true;
                 mySurfacePlotView.ShowMiniCoordinates = true;
+
                 mySurfacePlotView.hViewport.ZoomExtents();
-                
+                PlotData(this.data);
+                plot.CreateElements();
+                plot.ZoomExtents();
+
                 //mySurfacePlotModel.DataPoints = this.services.DrawWellModel3D(this.data);
                 //mySurfacePlotView.DataPoints = this.services.DrawWellModel3D(this.data);
 
@@ -77,6 +70,42 @@ namespace Aggregator
             else
                 MessageBox.Show("An csv file does not loaded!");
         }
+
+
+    
+
+        private void PlotData(Data data)
+        {
+            double[] x = data.X.ToArray();
+            double[] y = data.Y.ToArray();
+            double[] z = data.Z.ToArray();
+            double minX = 100000;
+            double minY = 100000;
+            double minZ = 100000;
+            double maxX = -100000;
+            double maxY = -100000;
+            double maxZ = -100000;
+            for (int i = 0; i < data.Length(); i++)
+            {
+                plot.AddPoint(new Point3D(x[i], y[i], z[i]), Colors.Red, 1.5);
+                minX = Math.Min(minX, x[i]);
+                minY = Math.Min(minY, y[i]);
+                minZ = Math.Min(minZ, z[i]);
+                maxX = Math.Max(maxX, x[i]);
+                maxY = Math.Max(maxY, y[i]);
+                maxZ = Math.Max(maxZ, z[i]);
+            }
+            plot.BoundingBox = new Rect3D(minX, minY, minZ, maxX, maxY, maxZ);
+        }
+
+
+
+
+
+
+
+
+
         public ViewModel ViewModel
         {
             get { return (ViewModel)DataContext; }

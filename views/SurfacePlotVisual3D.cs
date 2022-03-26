@@ -25,6 +25,7 @@ namespace WPFSurfacePlot3D
             FontSize = 0.06;
             LineThickness = 0.01;
 
+
             modelContainer = new ModelVisual3D();
             Children.Add(modelContainer);
         }

@@ -93,8 +93,8 @@
                         <Viewbox Grid.Row="1" Grid.Column="0">
                             <Label Content="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center"/>
                         </Viewbox>
-                        
-                        
+
+                        <local:HelixPlot Grid.Row="1" Grid.Column="0" x:Name="plot" ShowViewCube="False" />
                         <SurfacePlot:SurfacePlotView Grid.Row="1" Grid.Column="1" x:Name="mySurfacePlotView" />
                         
 
