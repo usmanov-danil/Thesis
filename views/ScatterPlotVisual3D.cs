@@ -217,7 +217,7 @@ namespace Aggregator
             CreateElements();
         }
 
- 
+
         public void NewTrace(Point3D point, Color color, double thickness = 1)
         {
             path = new LinesVisual3D();
@@ -296,6 +296,27 @@ namespace Aggregator
         {
             for (int i = 0; i < points.Length; i++)
                 AddPoint(points[i], color, thickness);
+            UpdateBoundingBox(points);
+
+        }
+
+        private void UpdateBoundingBox(Point3D[] points) {
+            double minX = double.MaxValue;
+            double maxX = double.MinValue;
+            double minY = double.MaxValue;
+            double maxY = double.MinValue;
+            double minZ = double.MaxValue;
+            double maxZ = double.MinValue;
+            for (int i=0; i < points.Length; i++)
+            {
+                minX = Math.Min(minX, points[i].X);
+                minY = Math.Min(minY, points[i].Y);
+                minZ = Math.Min(minZ, points[i].Z);
+                maxX = Math.Max(maxX, points[i].X);
+                maxY = Math.Max(maxY, points[i].Y);
+                maxZ = Math.Max(maxZ, points[i].Z);
+            }
+            BoundingBox = new Rect3D(minX, minY, minZ, maxX, maxY, maxZ);
         }
     }
 }

@@ -5,9 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Aggregator.models;
 using Aggregator.services;
-using Microsoft.Win32;
-using WPFSurfacePlot3D;
 using System.Windows.Media.Media3D;
+using Microsoft.Win32;
 
 namespace Aggregator
 {
@@ -17,15 +16,12 @@ namespace Aggregator
     public partial class MainWindow : Window
     {
         private Services services;
-        private SurfacePlotModel SurfacePlotModel;
         private Data? data = null;
         private string delimiter = ";";
         public MainWindow()
         {
             InitializeComponent();
             this.services = new Services();
-            SurfacePlotModel = new SurfacePlotModel();
-            mySurfacePlotView.DataContext = SurfacePlotModel;
         }
 
         private void button_csv_Click(object sender, RoutedEventArgs e)
@@ -45,29 +41,15 @@ namespace Aggregator
                 ViewModel.Chart2Model = this.services.DrawWellProfileXZ(this.data);
                 ViewModel.Chart3Model = this.services.DrawWellProfileXY(this.data);
 
-                SurfacePlotModel.Title = "3D surface model";
-                
-                SurfacePlotModel.PlotData(this.services.DrawWellModel3D(this.data));
-                SurfacePlotModel.ShowSurfaceMesh = true;
-                SurfacePlotModel.ShowContourLines = true;
-                SurfacePlotModel.ShowMiniCoordinates = true;
-                SurfacePlotModel.ShowCoordinateSystem = true;
-                mySurfacePlotView.ShowMiniCoordinates = true;
-
-                mySurfacePlotView.hViewport.ZoomExtents();
 
                 plot.AddPoints(this.services.DrawWellProfile3D(this.data), Colors.Red, 1.5);
-               // plot.BoundingBox = new Rect3D(minX, minY, minZ, maxX, maxY, maxZ);
                 plot.CreateElements();
                 plot.ZoomExtents();
 
-                //SurfacePlotModel.DataPoints = this.services.DrawWellModel3D(this.data);
-                //mySurfacePlotView.DataPoints = this.services.DrawWellModel3D(this.data);
+                plot2.AddPoints(this.services.DrawWellModel3D(this.data), Colors.Red, 1.5);
+                plot2.CreateElements();
+                plot2.ZoomExtents();
 
-
-
-                //chart4 = this.services.DrawWellProfile3D(this.data);
-                //chart5 = 
             }
             else
                 MessageBox.Show("An csv file does not loaded!");

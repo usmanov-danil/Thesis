@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
-        xmlns:SurfacePlot="clr-namespace:WPFSurfacePlot3D"
         xmlns:local="clr-namespace:Aggregator"
         mc:Ignorable="d"
         Title="Aggregator" Height="720" Width="1240" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow">
@@ -95,7 +94,8 @@
                         </Viewbox>
 
                         <local:HelixPlot Grid.Row="1" Grid.Column="0" x:Name="plot" ShowViewCube="False" />
-                        <SurfacePlot:SurfacePlotView Grid.Row="1" Grid.Column="1" x:Name="mySurfacePlotView" />
+                        <local:HelixPlot2 Grid.Row="1" Grid.Column="1" x:Name="plot2" ShowViewCube="False" />
+                        <!--<SurfacePlot:SurfacePlotView Grid.Row="1" Grid.Column="1" x:Name="mySurfacePlotView" /> -->
                         
 
                     </Grid>

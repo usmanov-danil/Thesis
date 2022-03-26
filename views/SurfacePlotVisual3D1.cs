@@ -33,11 +33,10 @@ namespace Aggregator
         private BillboardTextVisual3D? coords;
         private double labelOffset, minDistanceSquared;
         private string coordinateFormat;
-        private List<LinesVisual3D> trace;
-        private LinesVisual3D path;
-        private Point3D point0;
-        private Vector3D delta0;
-
+        private Point3D[,]? points;
+        private ModelVisual3D modelContainer = new ModelVisual3D();
+        private double[,] ColorValues;
+        private Brush SurfaceBrush;
 
         public HelixPlot2()
             : base()
@@ -63,6 +62,11 @@ namespace Aggregator
 
 
         // Public fields
+        public Point3D[,] Points
+        {
+            get { return points; }
+            set { points = value; }
+        }
         public string AxisLabels { get; set; }
         public Rect3D BoundingBox { get; set; }
         public double TickSize { get; set; }
@@ -71,8 +75,8 @@ namespace Aggregator
         public SolidColorBrush AxisBrush { get; set; }
         public SolidColorBrush MarkerBrush { get; set; }
         public EElements Elements { get; set; }
-        public Color TraceColor { get { return (path != null) ? path.Color : Colors.Black; } }
-        public double TraceThickness { get { return (path != null) ? path.Thickness : 1; } }
+        public Color TraceColor { get { return Colors.Black; } }  // (points != null) ? path.Color : Colors.Black;
+        public double TraceThickness { get { return 1.0; } } // (points != null) ? path.Thickness : 1;
 
         [Flags]
         public enum EElements
@@ -201,101 +205,90 @@ namespace Aggregator
                 coords = null;
             }
 
-            if (trace != null)
+            if (points != null)
             {
-                foreach (LinesVisual3D p in trace)
-                    Children.Add(p);
-                path = trace[trace.Count - 1];
+                CreateSurface();
+                Children.Add(modelContainer);
             }
         }
 
+        private void CreateSurface()
+        {
+            // Get relevant constaints from the DataPoints object
+            int numberOfRows = points.GetUpperBound(0) + 1;
+            int numberOfColumns = points.GetUpperBound(1) + 1;
+
+            double minZ = double.MaxValue;
+            double maxZ = double.MinValue;
+
+            double minColorValue = double.MaxValue;
+            double maxColorValue = double.MinValue;
+
+            
+       
+            if (Math.Abs(minColorValue) < Math.Abs(maxColorValue)) { minColorValue = -maxColorValue; }
+            else { maxColorValue = -minColorValue; }
+
+            // Set the texture coordinates by either z-value or ColorValue
+            var textureCoordinates = new Point[numberOfRows, numberOfColumns];
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                for (int j = 0; j < numberOfColumns; j++)
+                {
+                    double tc;
+                    if (ColorValues != null) { tc = (ColorValues[i, j] - minColorValue) / (maxColorValue - minColorValue); }
+                    else { tc = (points[i, j].Z - minZ) / (maxZ - minZ); }
+                    textureCoordinates[i, j] = new Point(tc, tc);
+                }
+            }
+
+            // Build the surface model (i.e. the coloured surface model)
+            MeshBuilder surfaceModelBuilder = new MeshBuilder();
+            surfaceModelBuilder.AddRectangularMesh(points, textureCoordinates);
+
+            GeometryModel3D surfaceModel = new GeometryModel3D(surfaceModelBuilder.ToMesh(), MaterialHelper.CreateMaterial(BrushHelper.CreateGradientBrush(Colors.Red, Colors.White, Colors.Blue), null, null, 1, 0));
+            surfaceModel.BackMaterial = surfaceModel.Material;
+
+        }
 
         public void Clear()
         {
-            trace = null;
-            path = null;
+            points = null;
             CreateElements();
         }
 
 
-        public void NewTrace(Point3D point, Color color, double thickness = 1)
+        public void AddPoints(Point3D[,] points, Color color, double thickness = -1)
         {
-            path = new LinesVisual3D();
-            path.Color = color;
-            path.Thickness = thickness;
-            trace = new List<LinesVisual3D>();
-            trace.Add(path);
-            Children.Add(path);
-            point0 = point;
-            delta0 = new Vector3D();
+            this.points = points;
+            UpdateBoundingBox(points);
 
-            if (marker != null)
-            {
-                marker.Origin = point;
-                coords.Position = new Point3D(point.X - labelOffset, point.Y - labelOffset, point.Z + labelOffset);
-                coords.Text = string.Format(coordinateFormat, point.X, point.Y, point.Z);
-            }
         }
 
-        public void AddPoint(Point3D point, Color color, double thickness = -1)
+        private void UpdateBoundingBox(Point3D[,] points)
         {
-            if (trace == null)
+            int numberOfRows = points.GetUpperBound(0) + 1;
+            int numberOfColumns = points.GetUpperBound(1) + 1;
+
+            double minX = double.MaxValue;
+            double maxX = double.MinValue;
+            double minY = double.MaxValue;
+            double maxY = double.MinValue;
+            double minZ = double.MaxValue;
+            double maxZ = double.MinValue;
+            for (int i = 0; i < numberOfRows; i++)
             {
-                NewTrace(point, color, (thickness > 0) ? thickness : 1);
-                return;
+               for (int j = 0; j < numberOfColumns; j++) 
+               { 
+                minX = Math.Min(minX, points[i, j].X);
+                minY = Math.Min(minY, points[i, j].Y);
+                minZ = Math.Min(minZ, points[i, j].Z);
+                maxX = Math.Max(maxX, points[i, j].X);
+                maxY = Math.Max(maxY, points[i, j].Y);
+                maxZ = Math.Max(maxZ, points[i, j].Z);
+                }
             }
-
-            if ((point - point0).LengthSquared < minDistanceSquared) return;  // less than min distance from last point
-
-            if (path.Color != color || (thickness > 0 && path.Thickness != thickness))
-            {
-                if (thickness <= 0)
-                    thickness = path.Thickness;
-
-                path = new LinesVisual3D();
-                path.Color = color;
-                path.Thickness = thickness;
-                trace.Add(path);
-                Children.Add(path);
-            }
-
-            // If line segments AB and BC have the same direction (small cross product) then remove point B.
-            bool sameDir = false;
-            var delta = new Vector3D(point.X - point0.X, point.Y - point0.Y, point.Z - point0.Z);
-            delta.Normalize();  // use unit vectors (magnitude 1) for the cross product calculations
-            if (path.Points.Count > 0)
-            {
-                double xp2 = Vector3D.CrossProduct(delta, delta0).LengthSquared;
-                sameDir = (xp2 < 0.0005);  // approx 0.001 seems to be a reasonable threshold from logging xp2 values
-                //if (!sameDir) Title = string.Format("xp2={0:F6}", xp2);
-            }
-
-            if (sameDir)  // extend the current line segment
-            {
-                path.Points[path.Points.Count - 1] = point;
-                point0 = point;
-                delta0 += delta;
-            }
-            else  // add a new line segment
-            {
-                path.Points.Add(point0);
-                path.Points.Add(point);
-                point0 = point;
-                delta0 = delta;
-            }
-
-            if (marker != null)
-            {
-                marker.Origin = point;
-                coords.Position = new Point3D(point.X - labelOffset, point.Y - labelOffset, point.Z + labelOffset);
-                coords.Text = string.Format(coordinateFormat, point.X, point.Y, point.Z);
-            }
-        }
-
-        public void AddPoints(Point3D[] points, Color color, double thickness = -1)
-        {
-            for (int i = 0; i < points.Length; i++)
-                AddPoint(points[i], color, thickness);
+            BoundingBox = new Rect3D(minX, minY, minZ, maxX, maxY, maxZ);
         }
     }
 }
