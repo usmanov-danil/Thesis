@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Aggregator.models;
 using Aggregator.services;
-using System.Windows.Media.Media3D;
 using Microsoft.Win32;
 
 namespace Aggregator
@@ -37,37 +36,27 @@ namespace Aggregator
         {
             if (this.data != null)
             {
-                ViewModel.Chart1Model = this.services.DrawWellProfileYZ(this.data);
-                ViewModel.Chart2Model = this.services.DrawWellProfileXZ(this.data);
-                ViewModel.Chart3Model = this.services.DrawWellProfileXY(this.data);
+                ChartPlotVisual2D.Chart1Model = this.services.DrawWellProfileYZ(this.data);
+                ChartPlotVisual2D.Chart2Model = this.services.DrawWellProfileXZ(this.data);
+                ChartPlotVisual2D.Chart3Model = this.services.DrawWellProfileXY(this.data);
 
 
-                plot.AddPoints(this.services.DrawWellProfile3D(this.data), Colors.Red, 1.5);
-                plot.CreateElements();
-                plot.ZoomExtents();
+                ScatterPlot.AddPoints(this.services.DrawWellProfile3D(this.data), Colors.Red, 1.5);
+                ScatterPlot.CreateElements();
+                ScatterPlot.ZoomExtents();
 
-                plot2.AddPoints(this.services.DrawWellModel3D(this.data), Colors.Red, 1.5);
-                plot2.CreateElements();
-                plot2.ZoomExtents();
+                SurfacePlot.AddPoints(this.services.DrawWellModel3D(this.data), Colors.Red, 1.5);
+                SurfacePlot.CreateElements();
+                SurfacePlot.ZoomExtents();
 
             }
             else
                 MessageBox.Show("An csv file does not loaded!");
         }
 
-
-
-
-
-
-
-
-
-
-
-        public ViewModel ViewModel
+        public ChartPlotVisual2D ChartPlotVisual2D
         {
-            get { return (ViewModel)DataContext; }
+            get { return (ChartPlotVisual2D)DataContext; }
         }
         private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {

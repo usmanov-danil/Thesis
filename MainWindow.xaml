@@ -10,7 +10,7 @@
         Title="Aggregator" Height="720" Width="1240" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow">
 
     <Window.DataContext>
-        <local:ViewModel/>
+        <local:ChartPlotVisual2D/>
     </Window.DataContext>
     <TabControl>
         <TabItem Header="File parsing" IsSelected="True">
@@ -81,22 +81,33 @@
                         <oxy:PlotView Grid.Column="1" Grid.Row="0" Name="chart2" Model="{Binding Chart2Model }"/>
                         <oxy:PlotView Grid.Column="2" Grid.Row="0" Name="chart3" Model="{Binding Chart3Model }"/>
                     </Grid>
-                    <Grid Grid.Row="1"  Grid.Column="0">
+                    <Grid Grid.Row="1"  Grid.Column="0" Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Viewbox Grid.Row="1" Grid.Column="0">
                             <Label Content="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center"/>
                         </Viewbox>
+                        <TextBlock
+                            Text="3D Profile plot"
+                            Grid.Row="0" 
+                            Grid.Column="0"
+                            HorizontalAlignment="Center"  FontSize="14" VerticalAlignment="Center"
+                            />
+                        <TextBlock
+                            Text="3D Surface plot"
+                            Grid.Row="0" 
+                            Grid.Column="1"
+                            HorizontalAlignment="Center" FontSize="14" VerticalAlignment="Center"
+                            />
+                        <local:ScatterPlotVisual3D Grid.Row="1" Grid.Column="0" x:Name="ScatterPlot" ShowViewCube="False" />
+                        <local:SurfacePlotVisual3D Grid.Row="1" Grid.Column="1" x:Name="SurfacePlot" ShowViewCube="False" />
 
-                        <local:HelixPlot Grid.Row="1" Grid.Column="0" x:Name="plot" ShowViewCube="False" />
-                        <local:HelixPlot2 Grid.Row="1" Grid.Column="1" x:Name="plot2" ShowViewCube="False" />
-                        <!--<SurfacePlot:SurfacePlotView Grid.Row="1" Grid.Column="1" x:Name="mySurfacePlotView" /> -->
-                        
 
                     </Grid>
                 </Grid>

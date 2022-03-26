@@ -5,7 +5,7 @@ using OxyPlot;
 
 namespace Aggregator
 {
-    public class ViewModel : ViewModelBase
+    public class ChartPlotVisual2D : ViewModelBase
     {
         private PlotModel _Chart1Model;
         private PlotModel _Chart2Model;

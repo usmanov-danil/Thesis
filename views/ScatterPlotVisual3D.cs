@@ -27,7 +27,7 @@ using System.Windows.Media.Media3D;
 
 namespace Aggregator
 {
-    public class HelixPlot : HelixViewport3D
+    public class ScatterPlotVisual3D : HelixViewport3D
     {
         private TruncatedConeVisual3D? marker;
         private BillboardTextVisual3D? coords;
@@ -39,7 +39,7 @@ namespace Aggregator
         private Vector3D delta0;
 
 
-        public HelixPlot()
+        public ScatterPlotVisual3D()
             : base()
         {
             ZoomExtentsWhenLoaded = true;
@@ -47,6 +47,7 @@ namespace Aggregator
             ShowViewCube = true;
             ShowFrameRate = false;
             ShowTriangleCountInfo = false;
+            
 
             // Default configuration:
             AxisLabels = "X,Y,Z";
@@ -58,7 +59,7 @@ namespace Aggregator
             AxisBrush = Brushes.Gray;
             MarkerBrush = Brushes.Red;
             Elements = EElements.All;
-            CreateElements();
+            //CreateElements();
         }
 
 
@@ -119,7 +120,7 @@ namespace Aggregator
                 grid.MajorDistance = bbSize;
                 grid.Thickness = lineThickness;
                 grid.Fill = AxisBrush;
-                Children.Add(grid);
+                //Children.Add(grid);
             }
 
             if (Elements.HasFlag(EElements.Axes))
@@ -173,7 +174,7 @@ namespace Aggregator
                 box.BoundingBox = BoundingBox;
                 box.Thickness = 1;
                 box.Color = AxisBrush.Color;
-                Children.Add(box);
+                //Children.Add(box);
             }
 
             if (Elements.HasFlag(EElements.Marker))
@@ -186,14 +187,14 @@ namespace Aggregator
                 marker.Origin = new Point3D(0.0, 0.0, 0.0);
                 marker.Normal = new Vector3D(-1.0, -1.0, 1.0);
                 marker.Fill = MarkerBrush;
-                Children.Add(marker);
+              //  Children.Add(marker);
 
                 coords = new BillboardTextVisual3D();
                 coordinateFormat = string.Format("{{0:F{0}}}, {{1:F{0}}}, {{2:F{0}}}", DecimalPlaces, DecimalPlaces, DecimalPlaces);  // "{0:F2}, {1:F2}, {2:F2}"
                 coords.Text = string.Format(coordinateFormat, 0.0, 0.0, 0.0);
                 coords.Foreground = MarkerBrush;
                 coords.Position = new Point3D(-labelOffset, -labelOffset, labelOffset);
-                Children.Add(coords);
+                //Children.Add(coords);
             }
             else
             {
@@ -294,9 +295,11 @@ namespace Aggregator
 
         public void AddPoints(Point3D[] points, Color color, double thickness = -1)
         {
+            Clear();
             for (int i = 0; i < points.Length; i++)
                 AddPoint(points[i], color, thickness);
             UpdateBoundingBox(points);
+
 
         }
 
