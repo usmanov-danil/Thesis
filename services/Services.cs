@@ -55,6 +55,10 @@ namespace Aggregator.services
 
         // Image services
 
+        public Image LoadImage(string Path)
+        { 
+            return new Image(File.ReadAllBytes(Path));
+        }
         private byte[][] conver1dTo2d(byte[] arr, int w, int h)
         {
             byte[][] answer = new byte[h][];

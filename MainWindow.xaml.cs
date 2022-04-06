@@ -3,6 +3,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Aggregator.models;
 using Aggregator.services;
 using Microsoft.Win32;
@@ -16,6 +17,7 @@ namespace Aggregator
     {
         private Services services;
         private Data? data = null;
+        private models.Image? image = null;
         private string delimiter = ";";
         public MainWindow()
         {
@@ -61,7 +63,22 @@ namespace Aggregator
             if (item != null)
                 this.delimiter = item.Content.ToString();
         }
-        
 
+        private void button_open_img_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = "png";
+            openFileDialog.Title = "Select image of passport characteristic";
+            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png;*.gif|" +
+               "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+               "Portable Network Graphic (*.png)|*.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                this.image = this.services.LoadImage(openFileDialog.FileName);
+                imgPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+                
+
+        }
     }
 } 
