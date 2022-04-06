@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="http://oxyplot.org/wpf"
-        xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
         xmlns:local="clr-namespace:Aggregator"
         mc:Ignorable="d"
         Title="Aggregator" Height="720" Width="1240" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow">
@@ -20,7 +19,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A"/>
-                <Grid>
+                <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.1*"/>
                         <RowDefinition Height="0.1*"/>
@@ -61,30 +60,19 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.5*"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0"  Grid.Column="0">
+                    <oxy:PlotView Grid.Column="0" Grid.Row="0" Name="chart1" Model="{Binding Chart1Model }"/>
+                    <oxy:PlotView Grid.Column="1" Grid.Row="0" Name="chart2" Model="{Binding Chart2Model }"/>
+                    <Grid Grid.Column="0" Grid.Row="1" Background="White">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.33*"/>
-                            <ColumnDefinition Width="0.33*"/>
-                            <ColumnDefinition Width="0.33*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <oxy:PlotView Grid.Column="0" Grid.Row="0" Name="chart1" Model="{Binding Chart1Model }"/>
-                        <oxy:PlotView Grid.Column="1" Grid.Row="0" Name="chart2" Model="{Binding Chart2Model }"/>
-                        <oxy:PlotView Grid.Column="2" Grid.Row="0" Name="chart3" Model="{Binding Chart3Model }"/>
-                    </Grid>
-                    <Grid Grid.Row="1"  Grid.Column="0" Background="White">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.1*"/>
@@ -99,27 +87,226 @@
                             Grid.Column="0"
                             HorizontalAlignment="Center"  FontSize="14" VerticalAlignment="Center"
                             />
-                        <TextBlock
-                            Text="3D Surface plot"
-                            Grid.Row="0" 
-                            Grid.Column="1"
-                            HorizontalAlignment="Center" FontSize="14" VerticalAlignment="Center"
-                            />
                         <local:ScatterPlotVisual3D Grid.Row="1" Grid.Column="0" x:Name="ScatterPlot" ShowViewCube="False" />
-                        <local:SurfacePlotVisual3D Grid.Row="1" Grid.Column="1" x:Name="SurfacePlot" ShowViewCube="False" />
-
-
                     </Grid>
+                    <oxy:PlotView Grid.Column="1" Grid.Row="1" Name="chart3" Model="{Binding Chart3Model }"/>
                 </Grid>
             </Grid>
         </TabItem>
         <TabItem Header="Image processing">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="23*"/>
-                    <ColumnDefinition Width="1212*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A"/>
 
+                <TabControl Grid.Column="0" Background="#FFE5E5E5">
+                    <TabItem Header="Table" IsSelected="True">
+                    </TabItem>
+                    <TabItem Header="Properties">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Vertical" Height="645" VerticalAlignment="Center">
+                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock  Margin="5" Text="Factory manufacturer" FontWeight="Normal" FontFamily="Cambria" />
+                                    <TextBox  MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox" Margin="5,0,5,2"/>
+                                </StackPanel>
+                            </Border>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock  Margin="5" Text="ECP brand" FontWeight="Normal" FontFamily="Cambria" />
+                                    <TextBox  MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox2" Margin="5,0,5,2"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Vertical">
+                                    <TextBlock  Margin="5" Text="Optimal parameters for ECP work in water" FontWeight="Normal" FontFamily="Cambria" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.25*"/>
+                                            <ColumnDefinition Width="0.25*"/>
+                                            <ColumnDefinition Width="0.25*"/>
+                                            <ColumnDefinition Width="0.25*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.5*"/>
+                                            <RowDefinition Height="0.5*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox3" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox4" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox5" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox6" Margin="1,0,1,0" />
+                                    </Grid>
+                                </StackPanel>
+                             </Border>
+                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                <StackPanel Orientation="Horizontal" Margin="2">
+                                    <TextBlock  Margin="2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                    <TextBox  MinWidth="140" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox7" Margin="5,0,5,2"/>
+                                </StackPanel>
+                            </Border>
+
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock  Margin="5" Text="Plot parameters" FontWeight="Normal" FontFamily="Cambria" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.12*"/>
+                                                <ColumnDefinition Width="0.3*"/>
+                                                <ColumnDefinition Width="0.25*"/>
+                                                <ColumnDefinition Width="0.25*"/>
+                                                <ColumnDefinition Width="0.3*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="0.33*"/>
+                                                <RowDefinition Height="0.33*"/>
+                                                <RowDefinition Height="0.33*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Min" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Max" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                            <TextBlock Grid.Row="0" Grid.Column="3" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                            <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox8" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox9" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox10" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox11" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox12" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox13" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox14" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="5" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox15" Margin="1,0,1,0" />
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Vertical">
+                                    <TextBlock  Margin="5" Text="Steps of the grid lines along the axes" FontWeight="Normal" FontFamily="Cambria" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.25*"/>
+                                            <ColumnDefinition Width="0.25*"/>
+                                            <ColumnDefinition Width="0.25*"/>
+                                            <ColumnDefinition Width="0.25*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.5*"/>
+                                            <RowDefinition Height="0.5*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox16" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox17" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox18" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox19" Margin="1,0,1,0" />
+                                    </Grid>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Horizontal" Margin="2">
+                                        <TextBlock  Margin="2" Text="Feed Q(m3/day), H=0" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                        <TextBox  MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox20" Margin="5,0,5,2"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Horizontal" Margin="2">
+                                        <TextBlock  Margin="2" Text="Tab step with Q(m3/day)" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                        <TextBox  MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox21" Margin="5,0,5,2"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Vertical" Margin="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock  Margin="2" Text="Number of table points" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                            <TextBox  MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox22" Margin="5,0,5,2"/>
+                                        </StackPanel>
+                                    <Button x:Name="button_make_table" Content="Make table" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+                            </Border>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Vertical" Margin="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.33*"/>
+                                                <ColumnDefinition Width="0.33*"/>
+                                                <ColumnDefinition Width="0.33*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="0.5*"/>
+                                                <RowDefinition Height="0.5*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="ρ" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="μ" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Q" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                            <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox23" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox24" Margin="1,0,1,0" />
+                                            <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="InputTextBox25" Margin="1,0,1,0" />
+                                        </Grid>
+                                        <Button x:Name="button_recalculate_ecp" Content="Recalculate work of the ECP for mixture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Separator Background="Transparent" Height="20"/>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.5*"/>
+                                            <ColumnDefinition Width="0.5*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Column="0" x:Name="button_line_color_1" Content="Line color H=H(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center"/>
+                                        <Button Grid.Column="1" x:Name="button_line_color_2" Content="Line color N=N(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                                <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock  Margin="2" Text="View dependencies" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.33*"/>
+                                                <ColumnDefinition Width="0.33*"/>
+                                                <ColumnDefinition Width="0.33*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <CheckBox Grid.Column="0" Content="H=H(Q)" x:Name="checkBox1" ClickMode="Press" IsChecked="True"/>
+                                            <CheckBox Grid.Column="1" Content="N=N(Q)" x:Name="checkBox2" ClickMode="Press" IsChecked="True"/>
+                                            <CheckBox Grid.Column="2" Content="eff=eff(Q)" x:Name="checkBox3" ClickMode="Press" IsChecked="True"/>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+
+
+
+
+                            </StackPanel>
+                            
+                          
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+                            
             </Grid>
         </TabItem>
     </TabControl>

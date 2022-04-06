@@ -121,6 +121,7 @@ namespace Aggregator
                 grid.Thickness = lineThickness;
                 grid.Fill = AxisBrush;
                 //Children.Add(grid);
+
             }
 
             if (Elements.HasFlag(EElements.Axes))

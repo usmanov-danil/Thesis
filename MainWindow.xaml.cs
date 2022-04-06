@@ -45,10 +45,6 @@ namespace Aggregator
                 ScatterPlot.CreateElements();
                 ScatterPlot.ZoomExtents();
 
-                SurfacePlot.AddPoints(this.services.DrawWellModel3D(this.data), Colors.Red, 1.5);
-                SurfacePlot.CreateElements();
-                SurfacePlot.ZoomExtents();
-
             }
             else
                 MessageBox.Show("An csv file does not loaded!");
