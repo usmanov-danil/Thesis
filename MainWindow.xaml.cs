@@ -19,13 +19,13 @@ namespace Aggregator
         private Services services;
         private IValueConverter converter;
         private Data? data = null;
-        private models.Image image = new models.Image();
         private string delimiter = ";";
         public MainWindow()
         {
             InitializeComponent();
             this.services = new Services();
             this.converter = new ColorToBrushConverter();
+            
         }
 
         private void button_csv_Click(object sender, RoutedEventArgs e)
@@ -34,30 +34,41 @@ namespace Aggregator
            openFileDialog.DefaultExt = "csv";
            openFileDialog.Title = "Select telemetry CSV file";
             if (openFileDialog.ShowDialog() == true)
-                this.data = this.services.LoadData(openFileDialog.FileName, this.delimiter);
+            {
+                try
+                {
+                    this.data = this.services.LoadData(openFileDialog.FileName, this.delimiter);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The uploaded CSV file has an incompatible structure\nError: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+                
         }
 
         private void button_plot_Click(object sender, RoutedEventArgs e)
         {
             if (this.data != null)
             {
-                ChartPlotVisual2D.Chart1Model = this.services.DrawWellProfileYZ(this.data);
-                ChartPlotVisual2D.Chart2Model = this.services.DrawWellProfileXZ(this.data);
-                ChartPlotVisual2D.Chart3Model = this.services.DrawWellProfileXY(this.data);
+                ViewModel.Chart1Model = this.services.DrawWellProfileYZ(this.data);
+                ViewModel.Chart2Model = this.services.DrawWellProfileXZ(this.data);
+                ViewModel.Chart3Model = this.services.DrawWellProfileXY(this.data);
 
 
                 ScatterPlot.AddPoints(this.services.DrawWellProfile3D(this.data), Colors.Red, 1.5);
+                ScatterPlot.Title = "3D Profile plot";
                 ScatterPlot.CreateElements();
                 ScatterPlot.ZoomExtents();
 
             }
             else
-                MessageBox.Show("An csv file does not loaded!");
+                MessageBox.Show("An csv file does not loaded!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public ChartPlotVisual2D ChartPlotVisual2D
+        public ViewModel ViewModel
         {
-            get { return (ChartPlotVisual2D)DataContext; }
+            get { return (ViewModel)DataContext; }
         }
         private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
@@ -77,63 +88,24 @@ namespace Aggregator
                "Portable Network Graphic (*.png)|*.png";
             if (openFileDialog.ShowDialog() == true)
             {
-                this.image.img = this.services.LoadImage(openFileDialog.FileName);
-                imgPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+               
+                try
+                {
+                    // this.image.img = this.services.LoadImage(openFileDialog.FileName);
+                    imgPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The uploaded image file in an incompatible\nError: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
                 
 
         }
         // --------------------------------------------------------------------
         //// Image processing
-        private void FactoryName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.image.manufacture_name = FactoryName.Text;
-        }
 
-        private void EcpBrand_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.image.ecp_brand = EcpBrand.Text;
-        }
-        
-        // opt params
-
-        private void OptQ_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.image.optimal_params.power = (float)Convert.ToDouble(OptQ.Text);
-        }
-        private void OptH_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.image.optimal_params.height = (float)Convert.ToDouble(OptH.Text);
-        }
-        private void OptPower_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.image.optimal_params.kilowats = (float)Convert.ToDouble(OptPower.Text);
-        }
-        private void OptEff_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.image.optimal_params.efficiency = (float)Convert.ToDouble(OptEff.Text);
-        }
-
-        // Number of stages
-        private void NumStages_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.image.number_stages = Convert.ToInt32(NumStages.Text);
-        }
-        // Plot params
-        private void MinQ_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void MinH_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void MinPower_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+       
 
         // Buttons
 
@@ -151,14 +123,9 @@ namespace Aggregator
 
         private void button_make_table_Click(object sender, RoutedEventArgs e)
         {
-            if (imgPhoto.Source != null)
+            if (imgPhoto.Source == null)
             {
-                MessageBox.Show("An image should be uploaded!");
-                return;
-            }
-            if (!this.image.IsDataExists())
-            {
-                MessageBox.Show("Data above should be entered!");
+                MessageBox.Show("An image should be uploaded!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 

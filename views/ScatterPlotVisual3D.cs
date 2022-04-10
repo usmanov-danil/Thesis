@@ -301,7 +301,6 @@ namespace Aggregator
                 AddPoint(points[i], color, thickness);
             UpdateBoundingBox(points);
 
-
         }
 
         private void UpdateBoundingBox(Point3D[] points) {
