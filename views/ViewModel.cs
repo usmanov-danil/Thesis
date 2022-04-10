@@ -52,13 +52,13 @@ namespace Aggregator
         // Image processing
         private string _FactoryName = "";
         private string _EcpBrand = "";
-        private string _Stages = "5";
+        private int _Stages = 5;
         private PlotParams _OptimalParams = new PlotParams();
         private PlotParams _MinPlotParams = new PlotParams();
         private PlotParams _MaxPlotParams = new PlotParams();
-        private string _Mu = "0.0";
-        private string _Ro= "0.0";
-        private string _Q = "0.0";
+        private float _Mu = 0;
+        private float _Ro = 0;
+        private float _Q = 0;
         private bool _HIsChecked = true;
         private bool _NIsChecked = true;
         private bool _EffIsChecked = true;
@@ -88,12 +88,12 @@ namespace Aggregator
                 }
             }
         }
-        public string Stages
+        public int Stages
         {
-            get { return _Stages.ToString(); }
+            get { return _Stages; }
             set
             {
-                if (value != _Stages.ToString())
+                if (value != _Stages)
                 {
                     _Stages = value;
                     OnPropertyChanged();
@@ -137,7 +137,7 @@ namespace Aggregator
             }
         }
 
-        public string Mu
+        public float Mu
         {
             get { return _Mu; }
             set
@@ -149,7 +149,7 @@ namespace Aggregator
                 }
             }
         }
-        public string Ro
+        public float Ro
         {
             get { return _Ro; }
             set
@@ -161,7 +161,7 @@ namespace Aggregator
                 }
             }
         }
-        public string Q
+        public float Q
         {
             get { return _Q; }
             set

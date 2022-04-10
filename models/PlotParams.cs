@@ -8,12 +8,12 @@ namespace Aggregator.models
 {
     public class PlotParams
     {
-        private string _power = "0.0";
-        private string _height = "0.0";
-        private string _kilowats = "0.0";
-        private string _efficiency = "0.0";
+        private float _power = 0;
+        private float _height = 0;
+        private float _kilowats = 0;
+        private float _efficiency = 0;
 
-        public string power
+        public float power
         {
             get { return _power; }
             set
@@ -24,7 +24,7 @@ namespace Aggregator.models
                 }
             }
         }
-        public string height
+        public float height
         {
             get { return _height; }
             set
@@ -35,7 +35,7 @@ namespace Aggregator.models
                 }
             }
         }
-        public string kilowats
+        public float kilowats
         {
             get { return _kilowats; }
             set
@@ -46,7 +46,7 @@ namespace Aggregator.models
                 }
             }
         }
-        public string efficiency
+        public float efficiency
         {
             get { return _efficiency; }
             set

@@ -106,17 +106,57 @@
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" Text="{Binding OptimalParams.power}"  />
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" Text="{Binding OptimalParams.height}" />
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" Text="{Binding OptimalParams.kilowats}"/>
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" Text="{Binding OptimalParams.efficiency}" />
+                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0"  >
+                                            <TextBox.Text>
+                                                <Binding Path="OptimalParams.power">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="OptimalParams.height">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="OptimalParams.kilowats">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="OptimalParams.efficiency">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                     </Grid>
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <TextBlock Margin="2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <TextBox MinWidth="140" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding Stages}"/>
+                                    <TextBox  MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
+                                        <TextBox.Text>
+                                            <Binding Path="Stages">
+                                                <Binding.ValidationRules>
+                                                    <ExceptionValidationRule />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
@@ -141,14 +181,78 @@
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="3" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MinPlotParams.power}" />
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MinPlotParams.height}" />
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MinPlotParams.kilowats}" />
-                                        <TextBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MinPlotParams.efficiency}" />
-                                        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MaxPlotParams.power}" />
-                                        <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MaxPlotParams.height}"/>
-                                        <TextBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MaxPlotParams.kilowats}" />
-                                        <TextBox Grid.Row="5" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding MaxPlotParams.efficiency}" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MinPlotParams.power">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MinPlotParams.height">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MinPlotParams.kilowats">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MinPlotParams.efficiency">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0">
+                                            <TextBox.Text>
+                                                <Binding Path="MaxPlotParams.power">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MaxPlotParams.height">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MaxPlotParams.kilowats">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="5" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MaxPlotParams.efficiency">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                     </Grid>
                                 </StackPanel>
                             </Border>
@@ -205,9 +309,33 @@
                                         <TextBlock Grid.Row="0" Grid.Column="0" Text="ρ" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="μ" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="Q" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding Ro}" />
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding Mu}" />
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" Text="{Binding Q}" />
+                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="Ro">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="Mu">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="Q">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                     </Grid>
 
                                 </StackPanel>
