@@ -6,15 +6,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:oxy="http://oxyplot.org/wpf"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+    
+    xmlns:services="clr-namespace:Aggregator.services"
     x:Class="Aggregator.MainWindow" 
     mc:Ignorable="d" 
     Title="Aggregator" Height="720" Width="1240" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" 
     WindowStyle="SingleBorderWindow">
- 
+
     <Window.DataContext>
-        <local:ChartPlotVisual2D />
+        <local:ChartPlotVisual2D /> 
     </Window.DataContext>
+    <Window.Resources>
+        <services:ColorToBrushConverter x:Key="colorToBrushConverter"/>
+    </Window.Resources>
     <TabControl>
         <TabItem Header="File parsing" IsSelected="True">
             <Grid Background="#FFE5E5E5">
@@ -83,7 +87,7 @@
                         <TextBlock Text="3D Profile plot" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" VerticalAlignment="Center" />
                         <local:ScatterPlotVisual3D Grid.Row="1" Grid.Column="0" x:Name="ScatterPlot" ShowViewCube="False" />
                     </Grid>
-                    <oxy:PlotView Grid.Column="1" Grid.Row="1" Name="chart3" Model="{Binding Chart3Model }" />
+                    <oxy:PlotView Grid.Column="1" Grid.Row="1" Name="chart3" Model="{Binding Path=Chart3Model }" PanCursor="Hand" ZoomHorizontalCursor="SizeWE" ZoomRectangleCursor="SizeNWSE" ZoomVerticalCursor="SizeNS" />
                 </Grid>
             </Grid>
         </TabItem>
@@ -95,7 +99,7 @@
                 </Grid.ColumnDefinitions>
                 <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A" />
                 <TabControl Grid.Column="0" Background="#FFE5E5E5">
-                    <TabItem Header="Properties" IsSelected="True">
+                    <TabItem Header="Properties" IsSelected="True" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="70">
 
                         <StackPanel  Orientation="Vertical" Height="auto" VerticalAlignment="Stretch">
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
@@ -104,13 +108,13 @@
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="5" Text="Factory manufacturer" FontWeight="Normal" FontFamily="Cambria" />
-                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="FactoryName" Margin="5,0,5,2" />
+                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="FactoryName" Margin="5,0,5,2" " />
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="5" Text="ECP brand" FontWeight="Normal" FontFamily="Cambria" />
-                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="EcpBrand" Margin="5,0,5,2" />
+                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="EcpBrand" Margin="5,0,5,2" TextChanged="EcpBrand_TextChanged" />
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
@@ -131,17 +135,17 @@
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptQ" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptH" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptPower" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptEff" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptQ" Margin="1,0,1,0" TextChanged="OptQ_TextChanged"/>
+                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptH" Margin="1,0,1,0" TextChanged="OptH_TextChanged" />
+                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptPower" Margin="1,0,1,0" TextChanged="OptPower_TextChanged" />
+                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="OptEff" Margin="1,0,1,0" TextChanged="OptEff_TextChanged" />
                                     </Grid>
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <TextBlock Margin="2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <TextBox MinWidth="140" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="NumStages" Margin="5,0,5,2" />
+                                    <TextBox MinWidth="140" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="NumStages" Margin="5,0,5,2" TextChanged="NumStages_TextChanged" />
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
@@ -166,9 +170,9 @@
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="3" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MinQ" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MinH" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MinPower" Margin="1,0,1,0" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MinQ" Margin="1,0,1,0" TextChanged="MinQ_TextChanged" />
+                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MinH" Margin="1,0,1,0" TextChanged="MinH_TextChanged" />
+                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MinPower" Margin="1,0,1,0" TextChanged="MinPower_TextChanged" />
                                         <TextBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MinEff" Margin="1,0,1,0" />
                                         <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MaxQ" Margin="1,0,1,0" />
                                         <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MaxH" Margin="1,0,1,0" />
@@ -177,7 +181,7 @@
                                     </Grid>
                                 </StackPanel>
                             </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                            <!--<Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="5" Text="Steps of the grid lines along the axes" FontWeight="Normal" FontFamily="Cambria" />
                                     <Grid>
@@ -213,16 +217,8 @@
                                     <TextBlock Margin="2" Text="Tab step with Q(m3/day)" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                     <TextBox MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="TabStep" Margin="5,0,5,2" />
                                 </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical" Margin="2">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="2" Text="Number of table points" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                        <TextBox MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="NumTablePoints" Margin="5,0,5,2" />
-                                    </StackPanel>
-                                    <Button x:Name="button_make_table" Content="Make table" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" />
-                                </StackPanel>
-                            </Border>
+                            </Border> -->
+
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical" Margin="2">
                                     <Grid>
@@ -242,23 +238,35 @@
                                         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="Mu" Margin="1,0,1,0" />
                                         <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="Qparam" Margin="1,0,1,0" />
                                     </Grid>
-                                    <Button x:Name="button_recalculate_ecp" Content="Recalculate work of the ECP for mixture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" />
+
                                 </StackPanel>
                             </Border>
                             <Separator Background="Transparent" Height="20" />
+                            
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.5*" />
-                                        <ColumnDefinition Width="0.5*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Button Grid.Column="0" x:Name="button_line_color_1" Content="Line color H=H(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" />
-                                    <Button Grid.Column="1" x:Name="button_line_color_2" Content="Line color N=N(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" />
-                                </Grid>
+                                <StackPanel Orientation="Vertical" Margin="2">
+                                    <Border Grid.Row="1" Height="30"
+					                HorizontalAlignment="Stretch"
+					                BorderBrush="Black" BorderThickness="1" Margin="5">
+                                        <Rectangle Fill="{Binding ElementName=imgPhoto, Path=SelectedColor,
+					                Converter={StaticResource colorToBrushConverter}}"/>
+                                    </Border>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.5*" />
+                                            <ColumnDefinition Width="0.5*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Column="0" x:Name="button_line_color_1" Content="Line color H=H(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_line_color_1_Click" />
+                                        <Button Grid.Column="1" x:Name="button_line_color_2" Content="Line color N=N(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_line_color_2_Click" />
+                                    </Grid>
+                                    <Button x:Name="button_make_table" Content="Digitize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" />
+                                    <!--<Button x:Name="button_recalculate_ecp" Content="Recalculate work of the ECP for mixture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" /> -->
+                                </StackPanel>
                             </Border>
+
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="2" Text="View dependencies" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
@@ -284,15 +292,16 @@
                             RowBackground="LightGray" AlternatingRowBackground="White">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="№" Binding="{Binding Path=id}" Width="0.15*" />
-                                <DataGridTextColumn Header="Q,m3/day" Binding="{Binding Path=Power}" Width="0.25*" />
+                                <DataGridTextColumn Header="Q,m3/day" Binding="{Binding Path=Power}" Width="0.4*" />
                                 <DataGridTextColumn Header="H,m" Binding="{Binding Path=Height}" Width="0.25*" />
-                                <DataGridTextColumn Header="N,kWt" Binding="{Binding Path=Kilowats}" Width="0.25*" />
+                                <DataGridTextColumn Header="N,kWt" Binding="{Binding Path=Kilowats}" Width="0.3*" />
                                 <DataGridTextColumn Header="eff,%" Binding="{Binding Path=Efficiency}" Width="0.25*" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>
                 </TabControl>
-                <Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>
+                <!--<Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>-->
+                <services:ImageColorPicker  Grid.Column="1" x:Name="imgPhoto"  Stretch="Fill" Margin="50,49,50,50"/>
             </Grid>
         </TabItem>
     </TabControl>

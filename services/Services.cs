@@ -55,9 +55,9 @@ namespace Aggregator.services
 
         // Image services
 
-        public Image LoadImage(string Path)
+        public byte[] LoadImage(string Path)
         { 
-            return new Image(File.ReadAllBytes(Path));
+            return File.ReadAllBytes(Path);
         }
         private byte[][] conver1dTo2d(byte[] arr, int w, int h)
         {
@@ -66,6 +66,11 @@ namespace Aggregator.services
                 answer[i / w][i % w] = arr[i];
 
             return answer;
+        }
+        
+        public void ParsePlot()
+        {
+
         }
         //  private byte[][] ImageToArray(System.Drawing.Image img)
         // {

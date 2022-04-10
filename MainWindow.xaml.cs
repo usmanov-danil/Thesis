@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using Aggregator.models;
 using Aggregator.services;
 using Microsoft.Win32;
+using System.Windows.Data;
 
 namespace Aggregator
 {
@@ -16,13 +17,15 @@ namespace Aggregator
     public partial class MainWindow : Window
     {
         private Services services;
+        private IValueConverter converter;
         private Data? data = null;
-        private models.Image? image = null;
+        private models.Image image = new models.Image();
         private string delimiter = ";";
         public MainWindow()
         {
             InitializeComponent();
             this.services = new Services();
+            this.converter = new ColorToBrushConverter();
         }
 
         private void button_csv_Click(object sender, RoutedEventArgs e)
@@ -74,10 +77,93 @@ namespace Aggregator
                "Portable Network Graphic (*.png)|*.png";
             if (openFileDialog.ShowDialog() == true)
             {
-                this.image = this.services.LoadImage(openFileDialog.FileName);
+                this.image.img = this.services.LoadImage(openFileDialog.FileName);
                 imgPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
                 
+
+        }
+        // --------------------------------------------------------------------
+        //// Image processing
+        private void FactoryName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.image.manufacture_name = FactoryName.Text;
+        }
+
+        private void EcpBrand_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.image.ecp_brand = EcpBrand.Text;
+        }
+        
+        // opt params
+
+        private void OptQ_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.image.optimal_params.power = (float)Convert.ToDouble(OptQ.Text);
+        }
+        private void OptH_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.image.optimal_params.height = (float)Convert.ToDouble(OptH.Text);
+        }
+        private void OptPower_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.image.optimal_params.kilowats = (float)Convert.ToDouble(OptPower.Text);
+        }
+        private void OptEff_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.image.optimal_params.efficiency = (float)Convert.ToDouble(OptEff.Text);
+        }
+
+        // Number of stages
+        private void NumStages_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.image.number_stages = Convert.ToInt32(NumStages.Text);
+        }
+        // Plot params
+        private void MinQ_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void MinH_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void MinPower_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        // Buttons
+
+        private void button_line_color_1_Click(object sender, RoutedEventArgs e)
+        {
+            if (imgPhoto.Source != null)
+                button_line_color_1.Background = (Brush)converter.Convert(imgPhoto.SelectedColor, typeof(Brush), null, null);
+        }
+
+        private void button_line_color_2_Click(object sender, RoutedEventArgs e)
+        {
+            if (imgPhoto.Source != null)
+                button_line_color_2.Background = (Brush)converter.Convert(imgPhoto.SelectedColor, typeof(Brush), null, null);
+        }
+
+        private void button_make_table_Click(object sender, RoutedEventArgs e)
+        {
+            if (imgPhoto.Source != null)
+            {
+                MessageBox.Show("An image should be uploaded!");
+                return;
+            }
+            if (!this.image.IsDataExists())
+            {
+                MessageBox.Show("Data above should be entered!");
+                return;
+            }
+
+            services.ParsePlot();
+            services.ParsePlot();
 
         }
     }
