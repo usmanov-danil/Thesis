@@ -88,11 +88,9 @@ namespace Aggregator
                "Portable Network Graphic (*.png)|*.png";
             if (openFileDialog.ShowDialog() == true)
             {
-               
                 try
                 {
-                    // this.image.img = this.services.LoadImage(openFileDialog.FileName);
-                    imgPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                    ViewModel.Image = this.services.LoadImage(openFileDialog.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -112,13 +110,13 @@ namespace Aggregator
         private void button_line_color_1_Click(object sender, RoutedEventArgs e)
         {
             if (imgPhoto.Source != null)
-                button_line_color_1.Background = (Brush)converter.Convert(imgPhoto.SelectedColor, typeof(Brush), null, null);
+                ViewModel.Color1 = imgPhoto.SelectedColor;
         }
 
         private void button_line_color_2_Click(object sender, RoutedEventArgs e)
         {
             if (imgPhoto.Source != null)
-                button_line_color_2.Background = (Brush)converter.Convert(imgPhoto.SelectedColor, typeof(Brush), null, null);
+                ViewModel.Color2 = imgPhoto.SelectedColor;
         }
 
         private void button_make_table_Click(object sender, RoutedEventArgs e)
@@ -128,9 +126,9 @@ namespace Aggregator
                 MessageBox.Show("An image should be uploaded!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
-            services.ParsePlot();
-            services.ParsePlot();
+            
+            services.ParsePlot(ViewModel);
+            //services.ParsePlot();
 
         }
     }

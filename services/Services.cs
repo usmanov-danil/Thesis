@@ -6,6 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media.Media3D;
+using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.Drawing.Imaging;
+using NumSharp;
+using Emgu;
+using Emgu.CV.Structure;
+using Emgu.CV;
 
 namespace Aggregator.services
 {
@@ -55,9 +62,9 @@ namespace Aggregator.services
 
         // Image services
 
-        public byte[] LoadImage(string Path)
+        public BitmapImage LoadImage(string Path)
         { 
-            return File.ReadAllBytes(Path);
+            return new BitmapImage(new Uri(Path));
         }
         private byte[][] conver1dTo2d(byte[] arr, int w, int h)
         {
@@ -68,37 +75,43 @@ namespace Aggregator.services
             return answer;
         }
         
-        public void ParsePlot()
+        public void ParsePlot(ViewModel model)
         {
+            var image =  BitmapImageToBitmap(model.Image.Clone()).ToNDArray(flat: false, copy: false);
+            Emgu.CV.Image<Bgr, Byte> myImage = new Emgu.CV.Image<Bgr, Byte>("C:\\Users\\User\\Desktop\\Расчет_РХ_ЭЦН\\DATA_ECN\\Алнас\\1.png");
+            NDArray bottom = new int[] { model.Color1.R, model.Color1.G, model.Color1.B };
+            NDArray upper = new int[] { model.Color1.R, model.Color1.G, model.Color1.B };
 
+
+            bottom -= 10;
+            upper += 10;
+
+            Emgu.CV.ScalarArray bottom2 = new Emgu.CV.ScalarArray(new Emgu.CV.Structure.MCvScalar((byte)model.Color1.B - 10, (byte)model.Color1.G - 10, (byte)model.Color1.R - 10, (byte)model.Color1.A - 10));
+            Emgu.CV.ScalarArray upper2 = new Emgu.CV.ScalarArray(new Emgu.CV.Structure.MCvScalar((byte)model.Color1.B + 10, (byte)model.Color1.G + 10, (byte)model.Color1.R + 10, (byte)model.Color1.A + 10));
+
+            Emgu.CV.CvInvoke.InRange(myImage, bottom2, upper2, myImage);
+
+            myImage.Save("C:\\Users\\User\\Desktop\\filename.png");
         }
-        //  private byte[][] ImageToArray(System.Drawing.Image img)
-        // {
-        //      using (var ms = new MemoryStream())
-        //     {
-        //         img.Save(ms, img.RawFormat);
-        //        return this.conver1dTo2d(ms.ToArray(), img.Width, img.Height);
-        //  }
-        // }
-        //   public Tuple<List<int>, List<int>> ExtractPointsFromPic(System.Drawing.Image img)
-        // {
-        //  byte[][] byte_img = this.ImageToArray(img);
-        //  List<int> x = new();
-        //  List<int> y = new();
+      
+        public static Bitmap BitmapImageToBitmap(BitmapImage bitmapImage)
+        {
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
+                enc.Save(outStream);
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
 
-        //   for (int i=0; i < byte_img.Length; i++)
-        //      for (int j=0; j < byte_img[i].Length; j++)
-        //     {
-        //         if (byte_img[i][j] > 125)
-        //          {
-        //x.Add(i);
-        //   y.Add(j);
-        //   }
+                return new Bitmap(bitmap);
+            }
 
-        //}
+           
+        }
 
-        //      return Tuple.Create(x, y);
-        // }
-        // }
+
+
+
+
     }
 }

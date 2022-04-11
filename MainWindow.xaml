@@ -358,8 +358,8 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <Button Grid.Column="0" x:Name="button_line_color_1" Content="Line color H=H(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_line_color_1_Click" />
-                                        <Button Grid.Column="1" x:Name="button_line_color_2" Content="Line color N=N(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_line_color_2_Click" />
+                                        <Button Grid.Column="0" x:Name="button_line_color_1" Content="Line color H=H(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="{Binding ColorBrush1}" Click="button_line_color_1_Click" />
+                                        <Button Grid.Column="1" x:Name="button_line_color_2" Content="Line color N=N(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="{Binding ColorBrush2}" Click="button_line_color_2_Click" />
                                     </Grid>
                                     <Button x:Name="button_make_table" Content="Digitize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA"  Click="button_make_table_Click" />
                                     <!--<Button x:Name="button_recalculate_ecp" Content="Recalculate work of the ECP for mixture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" /> -->
@@ -400,7 +400,7 @@
                     </TabItem>
                 </TabControl>
                 <!--<Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>-->
-                <services:ImageColorPicker  Grid.Column="2" x:Name="imgPhoto"  Stretch="Fill" Margin="50,49,50,50"/>
+                <services:ImageColorPicker Source="{Binding Image}"  Grid.Column="2" x:Name="imgPhoto"  Stretch="Fill" Margin="50,49,50,50"/>
             </Grid>
         </TabItem>
     </TabControl>

@@ -3,6 +3,9 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Aggregator.models;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Aggregator.services;
 
 namespace Aggregator
 {
@@ -50,6 +53,7 @@ namespace Aggregator
         }
 
         // Image processing
+        private BitmapImage? _Image;
         private string _FactoryName = "";
         private string _EcpBrand = "";
         private int _Stages = 5;
@@ -62,8 +66,26 @@ namespace Aggregator
         private bool _HIsChecked = true;
         private bool _NIsChecked = true;
         private bool _EffIsChecked = true;
+        private Color _Color1;
+        private Color _Color2;
+        private Brush _ColorBrush1;
+        private Brush _ColorBrush2;
+        private ColorToBrushConverter _ColorToBrushConverter = new ColorToBrushConverter();
 
         //   (float) Convert.ToDouble(OptEff.Text);
+
+        public BitmapImage Image
+        {
+            get { return _Image; }
+            set
+            {
+                if (value != _Image)
+                {
+                    _Image = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string FactoryName
         {
             get { return _FactoryName; }
@@ -211,6 +233,43 @@ namespace Aggregator
             }
         }
 
+        public Color Color1
+        {
+            get { return _Color1; }
+            set
+            {
+                if (value != _Color1)
+                {
+                    _Color1 = value;
+                    ColorBrush1 = (Brush)_ColorToBrushConverter.Convert(_Color1, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Color Color2
+        {
+            get { return _Color2; }
+            set
+            {
+                if (value != _Color2)
+                {
+                    _Color2 = value;
+                    ColorBrush2 = (Brush)_ColorToBrushConverter.Convert(_Color2, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Brush ColorBrush1
+        {
+            get { return _ColorBrush1; }
+            set { _ColorBrush1 = value; OnPropertyChanged(); }
+        }
+        public Brush ColorBrush2
+        {
+            get { return _ColorBrush2; }
+            set { _ColorBrush2 = value; OnPropertyChanged(); }
+        }
+
 
     }
 
@@ -221,7 +280,7 @@ namespace Aggregator
         protected void OnPropertyChanged([CallerMemberName] String propName = null)
         {
             // C#6.O
-            // PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            // PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName
             if (PropertyChanged != null)
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
         }
