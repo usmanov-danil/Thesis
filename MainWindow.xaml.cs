@@ -91,6 +91,7 @@ namespace Aggregator
                 try
                 {
                     ViewModel.Image = this.services.LoadImage(openFileDialog.FileName);
+                    ViewModel.ImagePath = openFileDialog.FileName;
                 }
                 catch (Exception ex)
                 {
@@ -127,8 +128,12 @@ namespace Aggregator
                 return;
             }
             
-            services.ParsePlot(ViewModel);
-            //services.ParsePlot();
+            var (x1, y1) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1);
+            var (x2, y2) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2);
+            // TODO:
+            // Add plots on image
+            // Transform data to table
+
 
         }
     }

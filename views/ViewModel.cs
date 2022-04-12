@@ -53,6 +53,7 @@ namespace Aggregator
         }
 
         // Image processing
+        private string? _ImagePath;
         private BitmapImage? _Image;
         private string _FactoryName = "";
         private string _EcpBrand = "";
@@ -72,8 +73,18 @@ namespace Aggregator
         private Brush _ColorBrush2;
         private ColorToBrushConverter _ColorToBrushConverter = new ColorToBrushConverter();
 
-        //   (float) Convert.ToDouble(OptEff.Text);
-
+        public string ImagePath
+        {
+            get { return _ImagePath; }
+            set
+            {
+                if (value != _ImagePath)
+                {
+                    _ImagePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public BitmapImage Image
         {
             get { return _Image; }
@@ -270,12 +281,6 @@ namespace Aggregator
             set { _ColorBrush2 = value; OnPropertyChanged(); }
         }
 
-        private string _debugtext = "";
-        public string debugtext
-        {
-            get { return _debugtext; }
-            set { _debugtext = value; OnPropertyChanged(); }
-        }
     }
 
     public class ViewModelBase : INotifyPropertyChanged

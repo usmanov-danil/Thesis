@@ -5,10 +5,11 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media.Media3D;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using MathNet.Numerics;
+using Color = System.Drawing.Color;
 
 namespace Aggregator.services
 {
@@ -63,44 +64,42 @@ namespace Aggregator.services
             return new BitmapImage(new Uri(Path));
         }
 
-        
-        public void ParsePlot(ViewModel model)
+        private int ColorToGrayScale(Color color)
         {
+            return (int)(color.R * 0.299 + color.G * 0.578 + color.B * 0.114);
+        }
+        public Tuple<int[], int[]> ParsePlot(string Path, System.Windows.Media.Color TargetColor)
+        {
+            return ParsePlot(Path, System.Drawing.Color.FromArgb(TargetColor.A, TargetColor.R, TargetColor.G, TargetColor.B));
+        }
+        public Tuple<int[], int[]> ParsePlot(string Path, System.Drawing.Color TargetColor)
+        {
+            int ColorDelta = 10;
+            int Degree = 7;
             List<double> x = new List<double>();
             List<double> y = new List<double>();
-            var img = new Bitmap(Image.FromFile("C:\\Users\\User\\Desktop\\Расчет_РХ_ЭЦН\\DATA_ECN\\Алнас\\1.png"));
+            Bitmap img = new Bitmap(Image.FromFile(Path));
+
             for (int i = 0; i < img.Width; i++)
                 for (int j = 0; j < img.Height; j++)
                 {
-                    int ret = (int)(model.Color1.R * 0.299 + model.Color1.G * 0.578 + model.Color1.B * 0.114);
-                    Color pixel = img.GetPixel(i, j);
-                    int g_pix  = (int)(pixel.R * 0.299 + pixel.G * 0.578 + pixel.B * 0.114);
-                    if (g_pix > ret - 10 && g_pix < ret + 10)
+                    int TargetGrey = ColorToGrayScale(TargetColor);
+                    int PixelGrey = ColorToGrayScale(img.GetPixel(i, j));
+                    if (PixelGrey > TargetGrey - ColorDelta && PixelGrey < TargetGrey + ColorDelta)
                     {
                         x.Add(i);
-                        y.Add(img.Height - j);
-                        img.SetPixel(i, j, Color.Black);
+                        y.Add(img.Height - j); // To mirror
                     }
-                    else
-                        img.SetPixel(i, j, Color.White);
-
                 }
 
             int[] yy = y.ConvertAll(z => (int)z).ToArray();
             int[] xx = x.ConvertAll(z => (int)z).ToArray();
-            var f = Fit.PolynomialFunc(x.ToArray(), y.ToArray(), 7);
+
+            var f = Fit.PolynomialFunc(x.ToArray(), y.ToArray(), Degree);
             for (var i = 0; i < x.Count(); i++)
                 yy[i] = (int)f(x.ElementAt(i));
 
-
-            using (var sw = new StreamWriter("C:\\Users\\User\\Desktop\\data.csv"))
-            {
-                for (var i = 0; i < x.Count(); i++)
-                {
-                    yy[i] = (int)f(x.ElementAt(i));
-                    sw.WriteLine($"{x.ElementAt(i)};{y.ElementAt(i)}", i);
-                }
-            }
+            return new Tuple<int[], int[]>(xx, yy);
 
         }
         
