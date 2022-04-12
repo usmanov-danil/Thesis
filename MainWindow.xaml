@@ -382,6 +382,9 @@
                                         <CheckBox Grid.Column="1" Content="N=N(Q)"  ClickMode="Press" IsChecked="{Binding NIsChecked}" />
                                         <CheckBox Grid.Column="2" Content="eff=eff(Q)"  ClickMode="Press" IsChecked="{Binding EffIsChecked}" />
                                     </Grid>
+                                    <ScrollViewer CanContentScroll="True">
+                                        <TextBlock Margin="2" Text="{Binding debugtext}" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Visible" />
+                                    </ScrollViewer>
                                 </StackPanel>
                             </Border>
                         </StackPanel>

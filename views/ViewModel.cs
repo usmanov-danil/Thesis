@@ -270,7 +270,12 @@ namespace Aggregator
             set { _ColorBrush2 = value; OnPropertyChanged(); }
         }
 
-
+        private string _debugtext = "";
+        public string debugtext
+        {
+            get { return _debugtext; }
+            set { _debugtext = value; OnPropertyChanged(); }
+        }
     }
 
     public class ViewModelBase : INotifyPropertyChanged
