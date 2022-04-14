@@ -22,6 +22,18 @@ namespace Aggregator.services
 		}
 		#endregion SelectedColor
 
+		#region SelectedPosition
+		private static readonly DependencyPropertyKey SelectedPositionPropertyKey
+			= DependencyProperty.RegisterReadOnly("SelectedPosition", typeof(Point), typeof(ImageColorPicker)
+			, new FrameworkPropertyMetadata(new Point(0,0)
+				, FrameworkPropertyMetadataOptions.AffectsRender));
+
+		public Point SelectedPosition
+		{
+			get { return (Point)GetValue(SelectedPositionPropertyKey.DependencyProperty); }
+		}
+		#endregion SelectedColor
+
 		#region Selector
 		/// <summary>
 		/// Selector property backing DependencyProperty.
@@ -96,6 +108,7 @@ namespace Aggregator.services
 					if (color == SelectedColor)
 						InvalidateVisual();
 					SetValue(SelectedColorPropertyKey, color);
+					SetValue(SelectedPositionPropertyKey, position);
 				}
 			}
 		}

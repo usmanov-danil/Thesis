@@ -8,6 +8,8 @@ using Aggregator.models;
 using Aggregator.services;
 using Microsoft.Win32;
 using System.Windows.Data;
+using System.Drawing;
+using System.Windows.Shapes;
 
 namespace Aggregator
 {
@@ -120,6 +122,13 @@ namespace Aggregator
                 ViewModel.Color2 = imgPhoto.SelectedColor;
         }
 
+        private void button_line_color_3_Click(object sender, RoutedEventArgs e)
+        {
+            if (imgPhoto.Source != null)
+                ViewModel.Color3 = imgPhoto.SelectedColor;
+        }
+        
+
         private void button_make_table_Click(object sender, RoutedEventArgs e)
         {
             if (imgPhoto.Source == null)
@@ -127,14 +136,56 @@ namespace Aggregator
                 MessageBox.Show("An image should be uploaded!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            
-            var (x1, y1) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1);
-            var (x2, y2) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2);
+            if (!ViewModel.IsPointsExist())
+            {
+                MessageBox.Show("An plot corner points should be selected!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var parsed1 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
+            var (x1, y1, poly1) = services.DigitizeImage(parsed1, imgPhoto.ActualHeight);
+            Binding myBinding = new Binding();
+            myBinding.Source = ViewModel;
+            myBinding.Path = new PropertyPath("HIsChecked");
+            myBinding.Mode = BindingMode.OneWay;
+           myBinding.UpdateSourceTrigger = UpdateSourceTrigger.Default;
+            poly1.SetBinding(VisibilityProperty, myBinding);
+            Canvas.Children.Add(poly1);
+
+            var parsed2 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
+            var(x2, y2, poly2) = services.DigitizeImage(parsed2, imgPhoto.ActualHeight);
+            Canvas.Children.Add(poly2);
+
+            var parsed3 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color3, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
+            var (x3, y3, poly3) = services.DigitizeImage(parsed3, imgPhoto.ActualHeight);
+            Canvas.Children.Add(poly3);
+
             // TODO:
-            // Add plots on image
             // Transform data to table
+            // Add checkboxes
+
 
 
         }
+
+        private void orig_Click(object sender, RoutedEventArgs e)
+        {
+            var p = imgPhoto.SelectedPosition;
+            ViewModel.OriginPoint = p;
+            orig.Content = $"({(int)p.X};{(int)p.Y})px";
+        }
+        private void x_Click(object sender, RoutedEventArgs e)
+        {
+            var p = imgPhoto.SelectedPosition;
+            ViewModel.XPoint = p;
+            x.Content = $"({(int)p.X};{(int)p.Y})px";
+        }
+        private void y_Click(object sender, RoutedEventArgs e)
+        {
+            var p = imgPhoto.SelectedPosition;
+            ViewModel.YPoint = p;
+            y.Content = $"({(int)p.X};{(int)p.Y})px";
+        }
+
     }
 } 

@@ -26,22 +26,22 @@
                     <ColumnDefinition Width="0.25*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-               
+
                 <Border Grid.Column="0" Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="2,2,2,2">
-                        <StackPanel Orientation="Vertical" Margin="2" HorizontalAlignment="Stretch">
-                            <TextBlock Text="Telemetry file parsing" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Stretch" FontSize="18" FontWeight="Bold" />
-                            <StackPanel Orientation="Horizontal" Margin="2" HorizontalAlignment="Stretch">
-                                <TextBlock Text="Choose delimiter" HorizontalAlignment="Stretch" Margin="5,0,5,0" VerticalAlignment="Center" FontWeight="Normal" />
-                                <ComboBox x:Name="delimiter_combobox" Grid.Column="1" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" SelectionChanged="ComboBox_SelectionChanged" StaysOpenOnEdit="True" IsReadOnly="True" MinWidth="130" VerticalContentAlignment="Top" HorizontalContentAlignment="Center">
-                                    <ComboBoxItem Content=";" IsSelected="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <ComboBoxItem Content="," HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <ComboBoxItem Content="/" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                </ComboBox>
-                            </StackPanel>
-                            <Button x:Name="button_csv" Grid.Row="2" Grid.Column="0" Content="Load CSV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="24" HorizontalContentAlignment="Center" Click="button_csv_Click" />
-                            <Button x:Name="button_plot" Grid.Row="3" Grid.Column="0" Content="Plot" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="24" HorizontalContentAlignment="Center" Click="button_plot_Click" />
+                    <StackPanel Orientation="Vertical" Margin="2" HorizontalAlignment="Stretch">
+                        <TextBlock Text="Telemetry file parsing" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Stretch" FontSize="18" FontWeight="Bold" />
+                        <StackPanel Orientation="Horizontal" Margin="2" HorizontalAlignment="Stretch">
+                            <TextBlock Text="Choose delimiter" HorizontalAlignment="Stretch" Margin="5,0,5,0" VerticalAlignment="Center" FontWeight="Normal" />
+                            <ComboBox x:Name="delimiter_combobox" Grid.Column="1" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" SelectionChanged="ComboBox_SelectionChanged" StaysOpenOnEdit="True" IsReadOnly="True" MinWidth="130" VerticalContentAlignment="Top" HorizontalContentAlignment="Center">
+                                <ComboBoxItem Content=";" IsSelected="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                <ComboBoxItem Content="," HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                <ComboBoxItem Content="/" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                            </ComboBox>
                         </StackPanel>
-                    </Border>
+                        <Button x:Name="button_csv" Grid.Row="2" Grid.Column="0" Content="Load CSV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="24" HorizontalContentAlignment="Center" Click="button_csv_Click" />
+                        <Button x:Name="button_plot" Grid.Row="3" Grid.Column="0" Content="Plot" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="24" HorizontalContentAlignment="Center" Click="button_plot_Click" />
+                    </StackPanel>
+                </Border>
                 <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A" />
 
                 <Grid Grid.Column="1">
@@ -57,19 +57,23 @@
                     <oxy:PlotView Grid.Column="1" Grid.Row="0" Name="chart2" Model="{Binding Chart2Model }" />
                     <oxy:PlotView Grid.Column="1" Grid.Row="1" Name="chart3" Model="{Binding Chart3Model }" />
                     <local:ScatterPlotVisual3D  Grid.Row="1" Grid.Column="0" x:Name="ScatterPlot" ShowViewCube="False" />
-                    </Grid>
-                
+                </Grid>
+
             </Grid>
         </TabItem>
         <TabItem Header="Image processing">
             <Grid Background="#FFE5E5E5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="279*"/>
+                    <RowDefinition Height="397*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="31*" />
                     <ColumnDefinition Width="216*"/>
                     <ColumnDefinition Width="987*" />
                 </Grid.ColumnDefinitions>
-                <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A" />
-                <TabControl Grid.Column="0" Background="#FFE5E5E5" Grid.ColumnSpan="3" Margin="0,0,987,0">
+                <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A" Grid.RowSpan="2" />
+                <TabControl Grid.Column="0" Background="#FFE5E5E5" Grid.ColumnSpan="2" Grid.RowSpan="2">
                     <TabItem Header="Properties" IsSelected="True" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="70">
 
                         <StackPanel  Orientation="Vertical" Height="auto" VerticalAlignment="Stretch">
@@ -341,6 +345,31 @@
                                 </StackPanel>
                             </Border>
                             <Separator Background="Transparent" Height="20" />
+                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="Choose corners of the plot on image" HorizontalAlignment="Center"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.33*"/>
+                                            <ColumnDefinition Width="0.33*"/>
+                                            <ColumnDefinition Width="0.33*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.3*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Origin" HorizontalAlignment="Center"/>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="X axe" HorizontalAlignment="Center"/>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Y axe" HorizontalAlignment="Center"/>
+                                        <Button Grid.Column="0" Grid.Row="1" x:Name="orig" Content="0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="orig_Click"/>
+                                        <Button Grid.Column="1" Grid.Row="1" x:Name="x" Content="X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="x_Click"/>
+                                        <Button Grid.Column="2" Grid.Row="1" x:Name="y" Content="Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="y_Click"/>
+
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
 
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical" Margin="2">
@@ -352,14 +381,28 @@
                                     </Border>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.5*" />
-                                            <ColumnDefinition Width="0.5*" />
+                                            <ColumnDefinition Width="0.33*" />
+                                            <ColumnDefinition Width="0.33*" />
+                                            <ColumnDefinition Width="0.33*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <Button Grid.Column="0" x:Name="button_line_color_1" Content="Line color H=H(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="{Binding ColorBrush1}" Click="button_line_color_1_Click" />
-                                        <Button Grid.Column="1" x:Name="button_line_color_2" Content="Line color N=N(Q)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="{Binding ColorBrush2}" Click="button_line_color_2_Click" />
+                                        <Button Grid.Column="0" x:Name="button_line_color_1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush1}" Click="button_line_color_1_Click" >
+                                            <Button.Content>
+                                                <TextBlock TextWrapping="Wrap" Text="Line color H=H(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button Grid.Column="1" x:Name="button_line_color_2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush2}" Click="button_line_color_2_Click">
+                                            <Button.Content>
+                                                <TextBlock TextWrapping="Wrap" Text="Line color N=N(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button Grid.Column="2" x:Name="button_line_color_3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush3}" Click="button_line_color_3_Click" >
+                                            <Button.Content>
+                                                <TextBlock TextWrapping="Wrap" Text="Line color eff=eff(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                            </Button.Content>
+                                        </Button>
                                     </Grid>
                                     <Button x:Name="button_make_table" Content="Digitize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA"  Click="button_make_table_Click" />
                                     <!--<Button x:Name="button_recalculate_ecp" Content="Recalculate work of the ECP for mixture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" /> -->
@@ -400,7 +443,17 @@
                     </TabItem>
                 </TabControl>
                 <!--<Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>-->
-                <services:ImageColorPicker Source="{Binding Image}"  Grid.Column="2" x:Name="imgPhoto"  Stretch="Fill" Margin="50,49,50,50"/>
+                <!--<oxy:PlotView Grid.Column="2" Model="{Binding ChartImageModel }" Background="Transparent" Margin="50,49,50,50"/>-->
+                <services:ImageColorPicker Source="{Binding Image}"  Grid.Column="2" x:Name="imgPhoto"  Stretch="Fill" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Canvas 
+                    Grid.Column="2" 
+                    x:Name="Canvas"
+                    Height="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type services:ImageColorPicker}}}" 
+                    Width="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type services:ImageColorPicker}}}" Grid.RowSpan="2"     
+                >
+                </Canvas>
+
+
             </Grid>
         </TabItem>
     </TabControl>

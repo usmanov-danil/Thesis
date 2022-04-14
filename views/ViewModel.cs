@@ -6,6 +6,7 @@ using Aggregator.models;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Aggregator.services;
+using System.Windows;
 
 namespace Aggregator
 {
@@ -15,6 +16,7 @@ namespace Aggregator
         private PlotModel _Chart1Model;
         private PlotModel _Chart2Model;
         private PlotModel _Chart3Model;
+        private PlotModel _ChartImageModel;
         public PlotModel Chart1Model
         {
             get { return _Chart1Model; }
@@ -52,6 +54,19 @@ namespace Aggregator
             }
         }
 
+        public PlotModel ChartImageModel
+        {
+            get { return _ChartImageModel; }
+            set
+            {
+                if (value != _ChartImageModel)
+                {
+                    _ChartImageModel = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         // Image processing
         private string? _ImagePath;
         private BitmapImage? _Image;
@@ -69,9 +84,14 @@ namespace Aggregator
         private bool _EffIsChecked = true;
         private Color _Color1;
         private Color _Color2;
+        private Color _Color3;
         private Brush _ColorBrush1;
         private Brush _ColorBrush2;
+        private Brush _ColorBrush3;
         private ColorToBrushConverter _ColorToBrushConverter = new ColorToBrushConverter();
+        private Point? _OriginPoint = null;
+        private Point? _XPoint = null;
+        private Point? _YPoint = null;
 
         public string ImagePath
         {
@@ -270,6 +290,24 @@ namespace Aggregator
                 }
             }
         }
+        public Color Color3
+        {
+            get { return _Color3; }
+            set
+            {
+                if (value != _Color3)
+                {
+                    _Color3 = value;
+                    ColorBrush3 = (Brush)_ColorToBrushConverter.Convert(_Color3, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Brush ColorBrush3
+        {
+            get { return _ColorBrush3; }
+            set { _ColorBrush3 = value; OnPropertyChanged(); }
+        }
         public Brush ColorBrush1
         {
             get { return _ColorBrush1; }
@@ -281,6 +319,26 @@ namespace Aggregator
             set { _ColorBrush2 = value; OnPropertyChanged(); }
         }
 
+        public Point? OriginPoint
+        {
+            get { return _OriginPoint; }
+            set { _OriginPoint = value; OnPropertyChanged(); }
+        }
+        public Point? XPoint
+        {
+            get { return _XPoint; }
+            set { _XPoint = value; OnPropertyChanged(); }
+        }
+        public Point? YPoint
+        {
+            get { return _YPoint; }
+            set { _YPoint = value; OnPropertyChanged(); }
+        }
+
+        public bool IsPointsExist()
+        {
+            return _OriginPoint != null && _XPoint != null && _YPoint != null;
+        }
     }
 
     public class ViewModelBase : INotifyPropertyChanged
