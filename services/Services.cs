@@ -13,18 +13,19 @@ using Color = System.Drawing.Color;
 using System.Windows.Shapes;
 using Brushes = System.Windows.Media.Brushes;
 using System.Reflection;
+using Microsoft.Win32;
 
 namespace Aggregator.services
 {
     public class Services
     {
         // Drawwing
-        
+
         public PlotModel DrawWellProfileXY(Data data)
         {
             PlotModel model = Charting.Draw2D(data.X.ToArray(), data.Y.ToArray(), OxyColors.Red);
             model.Title = "XY";
-            return model;   
+            return model;
         }
         public PlotModel DrawWellProfileXZ(Data data)
         {
@@ -42,7 +43,7 @@ namespace Aggregator.services
 
         public System.Windows.Media.Media3D.Point3D[,] DrawWellModel3D(Data data)
         {
-           return Helix.Draw3DModel(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
+            return Helix.Draw3DModel(data.X.ToArray(), data.Y.ToArray(), data.Z.ToArray());
         }
 
         public System.Windows.Media.Media3D.Point3D[] DrawWellProfile3D(Data data)
@@ -63,7 +64,7 @@ namespace Aggregator.services
         // Image services
 
         public BitmapImage LoadImage(string Path)
-        { 
+        {
             return new BitmapImage(new Uri(Path));
         }
 
@@ -71,11 +72,11 @@ namespace Aggregator.services
         {
             return (int)(color.R * 0.299 + color.G * 0.578 + color.B * 0.114);
         }
-        public Tuple<double[], double[], double, double> ParsePlot(string Path, System.Windows.Media.Color TargetColor, Tuple<double, double> sizes)
+        public Tuple<Func<double, double>, double, double, double, double> ParsePlot(string Path, System.Windows.Media.Color TargetColor, Tuple<double, double> sizes)
         {
             return ParsePlot(Path, System.Drawing.Color.FromArgb(TargetColor.A, TargetColor.R, TargetColor.G, TargetColor.B), sizes);
         }
-        public Tuple<double[], double[], double, double> ParsePlot(string Path, System.Drawing.Color TargetColor, Tuple<double, double> sizes)
+        public Tuple<Func<double, double>, double, double, double, double> ParsePlot(string Path, System.Drawing.Color TargetColor, Tuple<double, double> sizes)
         {
             int ColorDelta = 10;
             int Degree = 7;
@@ -95,46 +96,48 @@ namespace Aggregator.services
                     }
                 }
 
-            double[] yy = y.ConvertAll(z => (double)z).ToArray();
-            double[] xx = x.ConvertAll(z => (double)z).ToArray();
-
             var f = Fit.PolynomialFunc(x.ToArray(), y.ToArray(), Degree);
             double kx = sizes.Item1 / img.Width;
             double ky = sizes.Item2 / img.Height;
-            for (var i = 0; i < x.Count(); i++)
-            {
-                xx[i] = x.ElementAt(i);
-                yy[i] = f(x.ElementAt(i));
-            }
-                
-            
 
-            return new Tuple<double[], double[], double, double>(xx, yy, kx, ky);
-            
+            return new Tuple<Func<double, double>, double, double, double, double>(f, kx, ky, x.Max(), x.Min());
+
         }
-
-        public Tuple<double[], double[], Polyline> DigitizeImage(Tuple<double[], double[], double, double> coords, double height)
+        public double[] GenerateX(double step, double MaxX, double MinX)
         {
-            var (x, y, kx, ky) = coords;
+            List<double> xx = new List<double>();
+            for (double i = MinX; i < MaxX; i += step)
+                xx.Add(i);
+
+            return xx.ToArray();
+        }
+        public double[] GenerateY(Func<double, double> func, double[] x)
+        {
+            double[] y = new double[x.Length];
+            for (int i = 0; i < x.Length; i++)
+                y[i] = func(x[i]);
+
+
+            return y;
+        }
+            
+        public Polyline DigitizeImage(Tuple<double[], double[]> coords, double kx, double ky, double height)
+        {
+            var (x, y) = coords;
+            
             var poly = new Polyline();
             poly.Points = new PointCollection();
             for (int i = 0; i < x.Length; i++)
-            {
-                x[i] = x[i] * kx;
-                y[i] = height - y[i] * ky; // As y goes from top to down
-                poly.Points.Add(new System.Windows.Point(x[i], y[i]));
+                poly.Points.Add(new System.Windows.Point(x[i] * kx, height - y[i] * ky));
 
-            }
             poly.StrokeDashCap = PenLineCap.Flat;
             poly.Stroke = PickRandomBrush();
             poly.StrokeThickness = 10;
             var foo = new double[] { 1, 2 };
             poly.StrokeDashArray = new DoubleCollection(foo);
 
-            return new Tuple<double[], double[], Polyline>(x, y, poly);
+            return poly;
         }
-
-
 
         private System.Windows.Media.Brush PickRandomBrush()
         {
@@ -148,6 +151,29 @@ namespace Aggregator.services
 
             int random = rnd.Next(properties.Length);
             return (System.Windows.Media.Brush)properties[random].GetValue(null, null);
+        }
+
+        public List<PlotParams> PopulateTable(double[] Q, double[] H, double[] N, double[] Eff)
+        {
+            var table = new List<PlotParams>();
+            for (int i = 0; i < Q.Length; i++)
+            {
+                var data = new PlotParams();
+                data.id = i + 1;
+                data.power = (float)Q[i];
+                data.height = (float)H[i];
+                data.kilowats = (float)N[i];
+                data.efficiency = (float)Eff[i];
+                table.Add(data);
+            }
+
+            return table;
+        }
+        public void SaveDataToCsv(StreamWriter writer, List<PlotParams> data)
+        {
+            writer.WriteLine("№;Q;H;N;Eff");
+            foreach (PlotParams param in data)
+                writer.WriteLine($"{param.id};{param.power};{param.height};{param.kilowats};{param.efficiency}");
         }
 
     }

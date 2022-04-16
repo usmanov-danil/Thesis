@@ -8,6 +8,7 @@ namespace Aggregator.models
 {
     public class PlotParams
     {
+        private int _id; 
         private float _power = 0;
         private float _height = 0;
         private float _kilowats = 0;
@@ -55,6 +56,14 @@ namespace Aggregator.models
                 {
                     _efficiency = value;
                 }
+            }
+        }
+        public int id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
             }
         }
     }

@@ -7,7 +7,7 @@
     xmlns:oxy="http://oxyplot.org/wpf"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     
-    xmlns:services="clr-namespace:Aggregator.services"
+    xmlns:services="clr-namespace:Aggregator.services" d:DataContext="{d:DesignInstance Type=local:ViewModel}"
     x:Class="Aggregator.MainWindow" 
     mc:Ignorable="d" 
     Title="Aggregator" Height="720" Width="1240" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" 
@@ -18,6 +18,7 @@
     </Window.DataContext>
     <Window.Resources>
         <services:ColorToBrushConverter x:Key="colorToBrushConverter"/>
+        <services:PrecisionConverter x:Key="precisionConverter"/>
     </Window.Resources>
     <TabControl>
         <TabItem Header="File parsing" IsSelected="True">
@@ -94,7 +95,7 @@
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="Optimal parameters for ECP work in water" FontWeight="Normal" FontFamily="Cambria" />
+                                    <TextBlock Margin="5" Text="Optimal parameters for ECP work in water" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center"/>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.25*" />
@@ -108,7 +109,7 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0"  >
                                             <TextBox.Text>
@@ -150,9 +151,13 @@
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Horizontal" Margin="2">
-                                    <TextBlock Margin="2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <TextBox  MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"  Margin="2,2,2,2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                    <TextBox  Grid.Column="1" MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
                                         <TextBox.Text>
                                             <Binding Path="Stages">
                                                 <Binding.ValidationRules>
@@ -161,11 +166,11 @@
                                             </Binding>
                                         </TextBox.Text>
                                     </TextBox>
-                                </StackPanel>
+                                </Grid>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="Plot parameters" FontWeight="Normal" FontFamily="Cambria" />
+                                    <TextBlock Margin="5" Text="Plot parameters" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center" />
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.12*" />
@@ -183,7 +188,7 @@
                                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Max" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" />
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
@@ -297,7 +302,24 @@
                                     <TextBox MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="TabStep" Margin="5,0,5,2" />
                                 </StackPanel>
                             </Border> -->
-
+                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"  Margin="2,2,10,2" Text="Steps:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                                    <TextBox  Grid.Column="1" MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
+                                        <TextBox.Text>
+                                            <Binding Path="Steps">
+                                                <Binding.ValidationRules>
+                                                    <ExceptionValidationRule />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                </Grid>
+                            </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical" Margin="2">
                                     <Grid>
@@ -362,7 +384,7 @@
                                         <Label Grid.Column="0" Grid.Row="0" Content="Origin" HorizontalAlignment="Center"/>
                                         <Label Grid.Column="1" Grid.Row="0" Content="X axe" HorizontalAlignment="Center"/>
                                         <Label Grid.Column="2" Grid.Row="0" Content="Y axe" HorizontalAlignment="Center"/>
-                                        <Button Grid.Column="0" Grid.Row="1" x:Name="orig" Content="0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="orig_Click"/>
+                                        <Button Grid.Column="0" Grid.Row="1" x:Name="orig" Content="OXY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="orig_Click"/>
                                         <Button Grid.Column="1" Grid.Row="1" x:Name="x" Content="X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="x_Click"/>
                                         <Button Grid.Column="2" Grid.Row="1" x:Name="y" Content="Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="y_Click"/>
 
@@ -430,16 +452,30 @@
                         </StackPanel>
                     </TabItem>
                     <TabItem Header="Table">
-                        <DataGrid x:Name="ImageParsedGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
-                            RowBackground="LightGray" AlternatingRowBackground="White">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="№" Binding="{Binding Path=id}" Width="0.15*" />
-                                <DataGridTextColumn Header="Q,m3/day" Binding="{Binding Path=Power}" Width="0.4*" />
-                                <DataGridTextColumn Header="H,m" Binding="{Binding Path=Height}" Width="0.25*" />
-                                <DataGridTextColumn Header="N,kWt" Binding="{Binding Path=Kilowats}" Width="0.3*" />
-                                <DataGridTextColumn Header="eff,%" Binding="{Binding Path=Efficiency}" Width="0.25*" />
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="0.05*"/>
+                            </Grid.RowDefinitions>
+                       
+                            <DataGrid Grid.Row="0"  x:Name="ImageParsedGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" IsReadOnly="True"
+                            RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding Table}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="№" Binding="{Binding id}" Width="0.2*" />
+                                    <DataGridTextColumn Header="Q,m3/day" Binding="{Binding power, Converter={StaticResource precisionConverter} }" Width="0.3*" />
+                                    <DataGridTextColumn Header="H,m" Binding="{Binding height, Converter={StaticResource precisionConverter} }" Width="0.25*" />
+                                    <DataGridTextColumn Header="N,kWt" Binding="{Binding kilowats, Converter={StaticResource precisionConverter} }" Width="0.3*" />
+                                    <DataGridTextColumn Header="eff,%" Binding="{Binding efficiency, Converter={StaticResource precisionConverter}}" Width="0.25*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Border Grid.Row="1" Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="2,2,2,2" Margin="0,2,0,0">
+                                <Button Content="Download CSV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_download_csv_Click" />
+                            </Border>
+                        </Grid>
+                       
+                        
+
+                        
                     </TabItem>
                 </TabControl>
                 <!--<Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>-->
@@ -447,9 +483,8 @@
                 <services:ImageColorPicker Source="{Binding Image}"  Grid.Column="2" x:Name="imgPhoto"  Stretch="Fill" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Canvas 
                     Grid.Column="2" 
+                    Grid.RowSpan="2"
                     x:Name="Canvas"
-                    Height="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type services:ImageColorPicker}}}" 
-                    Width="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type services:ImageColorPicker}}}" Grid.RowSpan="2"     
                 >
                 </Canvas>
 

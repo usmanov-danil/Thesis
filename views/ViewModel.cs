@@ -8,16 +8,17 @@ using System.Windows.Media.Imaging;
 using Aggregator.services;
 using System.Windows;
 using System.Windows.Shapes;
+using System.Collections.Generic;
 
 namespace Aggregator
 {
     public class ViewModel : ViewModelBase
     {
         // Plots 2D
-        private PlotModel _Chart1Model;
-        private PlotModel _Chart2Model;
-        private PlotModel _Chart3Model;
-        private PlotModel _ChartImageModel;
+        private PlotModel? _Chart1Model;
+        private PlotModel? _Chart2Model;
+        private PlotModel? _Chart3Model;
+        private PlotModel? _ChartImageModel;
         public PlotModel Chart1Model
         {
             get { return _Chart1Model; }
@@ -54,7 +55,6 @@ namespace Aggregator
                 }
             }
         }
-
         public PlotModel ChartImageModel
         {
             get { return _ChartImageModel; }
@@ -68,32 +68,34 @@ namespace Aggregator
             }
         }
 
+
         // Image processing
         private string? _ImagePath;
         private BitmapImage? _Image;
         private string _FactoryName = "";
         private string _EcpBrand = "";
         private int _Stages = 5;
+        private double _Steps = 2.5;
         private PlotParams _OptimalParams = new PlotParams();
         private PlotParams _MinPlotParams = new PlotParams();
         private PlotParams _MaxPlotParams = new PlotParams();
-        private float _Mu = 0;
-        private float _Ro = 0;
-        private float _Q = 0;
+        private double _Mu = 0;
+        private double _Ro = 0;
+        private double _Q = 0;
         private bool _HIsChecked = true;
         private bool _NIsChecked = true;
         private bool _EffIsChecked = true;
         private Color _Color1;
         private Color _Color2;
         private Color _Color3;
-        private Brush _ColorBrush1;
-        private Brush _ColorBrush2;
-        private Brush _ColorBrush3;
+        private Brush? _ColorBrush1;
+        private Brush? _ColorBrush2;
+        private Brush? _ColorBrush3;
         private ColorToBrushConverter _ColorToBrushConverter = new ColorToBrushConverter();
         private Point? _OriginPoint = null;
         private Point? _XPoint = null;
         private Point? _YPoint = null;
-
+        private List<PlotParams> _Table;
 
         public string ImagePath
         {
@@ -155,16 +157,25 @@ namespace Aggregator
                 }
             }
         }
+        public double Steps
+        {
+            get { return _Steps; }
+            set
+            {
+                if (value != _Steps)
+                {
+                    _Steps = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public PlotParams OptimalParams
         {
             get { return _OptimalParams; }
             set
             {
-                if (value != _OptimalParams)
-                {
-                    _OptimalParams = value;
-                    OnPropertyChanged();
-                }
+                _OptimalParams = value;
+                OnPropertyChanged();
             }
         }
         public PlotParams MinPlotParams
@@ -172,11 +183,8 @@ namespace Aggregator
             get { return _MinPlotParams; }
             set
             {
-                if (value != _MinPlotParams)
-                {
-                    _MinPlotParams = value;
-                    OnPropertyChanged();
-                }
+                _MinPlotParams = value;
+                OnPropertyChanged(nameof(value));
             }
         }
         public PlotParams MaxPlotParams
@@ -184,15 +192,12 @@ namespace Aggregator
             get { return _MaxPlotParams; }
             set
             {
-                if (value != _MaxPlotParams)
-                {
-                    _MaxPlotParams = value;
-                    OnPropertyChanged();
-                }
+                _MaxPlotParams = value;
+                OnPropertyChanged(nameof(value));
             }
         }
 
-        public float Mu
+        public double Mu
         {
             get { return _Mu; }
             set
@@ -204,7 +209,7 @@ namespace Aggregator
                 }
             }
         }
-        public float Ro
+        public double Ro
         {
             get { return _Ro; }
             set
@@ -216,7 +221,7 @@ namespace Aggregator
                 }
             }
         }
-        public float Q
+        public double Q
         {
             get { return _Q; }
             set
@@ -335,6 +340,11 @@ namespace Aggregator
         {
             get { return _YPoint; }
             set { _YPoint = value; OnPropertyChanged(); }
+        }
+        public List<PlotParams> Table
+        {
+            get { return _Table; }
+            set { _Table = value; OnPropertyChanged(); }
         }
 
 

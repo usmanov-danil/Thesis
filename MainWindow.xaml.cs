@@ -3,14 +3,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Aggregator.models;
 using Aggregator.services;
 using Microsoft.Win32;
 using System.Windows.Data;
-using System.Drawing;
 using System.Windows.Shapes;
-using System.Globalization;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Aggregator
 {
@@ -143,23 +142,44 @@ namespace Aggregator
                 return;
             }
 
-            var parsed1 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
-            var(x1, y1, poly1) = services.DigitizeImage(parsed1, imgPhoto.ActualHeight);
 
-            var parsed2 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
-            var(x2, y2, poly2) = services.DigitizeImage(parsed2, imgPhoto.ActualHeight);
-
-            var parsed3 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color3, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
-            var (x3, y3, poly3) = services.DigitizeImage(parsed3, imgPhoto.ActualHeight);
+            var MaxYPoint = (Point)ViewModel.YPoint;
+            var MaxXPoint = (Point)ViewModel.XPoint;
+            var OrigPoint = (Point)ViewModel.OriginPoint;
+            var MinXPlot = ViewModel.MinPlotParams.power;
+            var MaxXPlot = ViewModel.MaxPlotParams.power;
 
 
+
+            var (f1, kx1, ky1, xmax1, xmin1) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
+            var (f2, kx2, ky2, xmax2, xmin2) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
+            var (f3, kx3, ky3, xmax3, xmin3) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color3, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
+            
+            var MinMaxX = Math.Min(xmax1, Math.Min(xmax2, xmax3));
+            var MaxMinX = Math.Max(xmin1, Math.Max(xmin2, xmin3));
+            var kx = (MaxXPlot - MinXPlot) / (MaxXPoint.X - OrigPoint.X);
+            var X = services.GenerateX(ViewModel.Steps, MinMaxX, MaxMinX);
+
+            var Y1 = services.GenerateY(f1, X);
+            var Y2 = services.GenerateY(f2, X);
+            var Y3 = services.GenerateY(f3, X);
+
+            ViewModel.Table = services.PopulateTable(X, Y1, Y2, Y3);
+
+
+
+
+
+            var poly1 = services.DigitizeImage(new Tuple<double[], double[]>(X, Y1), kx1, ky1, imgPhoto.ActualHeight);
+            var poly2 = services.DigitizeImage(new Tuple<double[], double[]>(X, Y2), kx2, ky2, imgPhoto.ActualHeight);
+            var poly3 = services.DigitizeImage(new Tuple<double[], double[]>(X, Y3), kx3, ky3, imgPhoto.ActualHeight);
 
             Binding binding1 = new Binding();
             Binding binding2 = new Binding();
             Binding binding3 = new Binding();
 
             binding1.Converter = binding2.Converter = binding3.Converter  = new BooleanToVisibilityConverter();
-            binding1.Source = binding2.Source = binding3.Source = ViewModel; // элемент-источник
+            binding1.Source = binding2.Source = binding3.Source = ViewModel;
             binding1.UpdateSourceTrigger = binding2.UpdateSourceTrigger = binding3.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
            
             binding1.Path = new PropertyPath("HIsChecked");
@@ -177,6 +197,7 @@ namespace Aggregator
 
             // TODO:
             // Transform data to table
+            // Fix color picker for plots
 
         }
         
@@ -197,6 +218,29 @@ namespace Aggregator
             var p = imgPhoto.SelectedPosition;
             ViewModel.YPoint = p;
             y.Content = $"({(int)p.X};{(int)p.Y})px";
+        }
+        private void button_download_csv_Click(object sender, RoutedEventArgs e)
+        {
+            if (ImageParsedGrid.ItemsSource == null)
+            {
+                MessageBox.Show("There is processed data!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+           
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            string filter = "CSV file (*.csv)|*.csv| All Files (*.*)|*.*";
+            saveFileDialog.Filter = filter;
+            saveFileDialog.FileName = $"{ViewModel.FactoryName}-{ViewModel.EcpBrand}";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                filter = saveFileDialog.FileName;
+                StreamWriter writer = new StreamWriter(filter);
+                services.SaveDataToCsv(writer, ViewModel.Table);
+                writer.Close();
+            }
+
+
         }
 
     }
