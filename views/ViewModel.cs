@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Aggregator.services;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace Aggregator
 {
@@ -92,6 +93,7 @@ namespace Aggregator
         private Point? _OriginPoint = null;
         private Point? _XPoint = null;
         private Point? _YPoint = null;
+
 
         public string ImagePath
         {
@@ -334,6 +336,12 @@ namespace Aggregator
             get { return _YPoint; }
             set { _YPoint = value; OnPropertyChanged(); }
         }
+
+
+
+
+
+
 
         public bool IsPointsExist()
         {

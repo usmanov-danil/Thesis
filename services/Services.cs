@@ -126,7 +126,7 @@ namespace Aggregator.services
 
             }
             poly.StrokeDashCap = PenLineCap.Flat;
-            poly.Stroke = PickBrush();
+            poly.Stroke = PickRandomBrush();
             poly.StrokeThickness = 10;
             var foo = new double[] { 1, 2 };
             poly.StrokeDashArray = new DoubleCollection(foo);
@@ -136,7 +136,7 @@ namespace Aggregator.services
 
 
 
-        private System.Windows.Media.Brush PickBrush()
+        private System.Windows.Media.Brush PickRandomBrush()
         {
             System.Windows.Media.Brush result = Brushes.Black;
 
@@ -149,7 +149,6 @@ namespace Aggregator.services
             int random = rnd.Next(properties.Length);
             return (System.Windows.Media.Brush)properties[random].GetValue(null, null);
         }
-
 
     }
 }

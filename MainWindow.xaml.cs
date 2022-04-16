@@ -10,6 +10,7 @@ using Microsoft.Win32;
 using System.Windows.Data;
 using System.Drawing;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace Aggregator
 {
@@ -143,31 +144,42 @@ namespace Aggregator
             }
 
             var parsed1 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
-            var (x1, y1, poly1) = services.DigitizeImage(parsed1, imgPhoto.ActualHeight);
-            Binding myBinding = new Binding();
-            myBinding.Source = ViewModel;
-            myBinding.Path = new PropertyPath("HIsChecked");
-            myBinding.Mode = BindingMode.OneWay;
-           myBinding.UpdateSourceTrigger = UpdateSourceTrigger.Default;
-            poly1.SetBinding(VisibilityProperty, myBinding);
-            Canvas.Children.Add(poly1);
+            var(x1, y1, poly1) = services.DigitizeImage(parsed1, imgPhoto.ActualHeight);
 
             var parsed2 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
             var(x2, y2, poly2) = services.DigitizeImage(parsed2, imgPhoto.ActualHeight);
-            Canvas.Children.Add(poly2);
 
             var parsed3 = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color3, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
             var (x3, y3, poly3) = services.DigitizeImage(parsed3, imgPhoto.ActualHeight);
+
+
+
+            Binding binding1 = new Binding();
+            Binding binding2 = new Binding();
+            Binding binding3 = new Binding();
+
+            binding1.Converter = binding2.Converter = binding3.Converter  = new BooleanToVisibilityConverter();
+            binding1.Source = binding2.Source = binding3.Source = ViewModel; // элемент-источник
+            binding1.UpdateSourceTrigger = binding2.UpdateSourceTrigger = binding3.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+           
+            binding1.Path = new PropertyPath("HIsChecked");
+            binding2.Path = new PropertyPath("NIsChecked");
+            binding3.Path = new PropertyPath("EffIsChecked");
+        
+            BindingOperations.SetBinding(poly1, Polyline.VisibilityProperty, binding1);
+            BindingOperations.SetBinding(poly2, Polyline.VisibilityProperty, binding2);
+            BindingOperations.SetBinding(poly3, Polyline.VisibilityProperty, binding3);
+
+            Canvas.Children.Clear();
+            Canvas.Children.Add(poly1);
+            Canvas.Children.Add(poly2);
             Canvas.Children.Add(poly3);
 
             // TODO:
             // Transform data to table
-            // Add checkboxes
-
-
 
         }
-
+        
         private void orig_Click(object sender, RoutedEventArgs e)
         {
             var p = imgPhoto.SelectedPosition;
