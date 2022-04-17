@@ -8,7 +8,6 @@ using Aggregator.services;
 using Microsoft.Win32;
 using System.Windows.Data;
 using System.Windows.Shapes;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Aggregator
@@ -157,16 +156,16 @@ namespace Aggregator
             
             var MinMaxX = Math.Min(xmax1, Math.Min(xmax2, xmax3));
             var MaxMinX = Math.Max(xmin1, Math.Max(xmin2, xmin3));
-            var kx = (MaxXPlot - MinXPlot) / (MaxXPoint.X - OrigPoint.X);
             var X = services.GenerateX(ViewModel.Steps, MinMaxX, MaxMinX);
 
             var Y1 = services.GenerateY(f1, X);
             var Y2 = services.GenerateY(f2, X);
             var Y3 = services.GenerateY(f3, X);
 
-            ViewModel.Table = services.PopulateTable(X, Y1, Y2, Y3);
-
-
+            var coefs = services.CalculateCoefs(ViewModel.MaxPlotParams, ViewModel.MinPlotParams, ViewModel.OriginPoint, ViewModel.XPoint,ViewModel.YPoint);
+            var DeltaX = ViewModel.OriginPoint.X;
+            var DeltaY = imgPhoto.ActualHeight - ViewModel.OriginPoint.Y;
+            ViewModel.Table = services.PopulateTable(X, Y1, Y2, Y3, coefs, DeltaX, DeltaY);
 
 
 
@@ -194,11 +193,6 @@ namespace Aggregator
             Canvas.Children.Add(poly1);
             Canvas.Children.Add(poly2);
             Canvas.Children.Add(poly3);
-
-            // TODO:
-            // Transform data to table
-            // Fix color picker for plots
-
         }
         
         private void orig_Click(object sender, RoutedEventArgs e)

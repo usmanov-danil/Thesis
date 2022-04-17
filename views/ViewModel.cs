@@ -7,7 +7,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Aggregator.services;
 using System.Windows;
-using System.Windows.Shapes;
 using System.Collections.Generic;
 
 namespace Aggregator
@@ -326,19 +325,19 @@ namespace Aggregator
             set { _ColorBrush2 = value; OnPropertyChanged(); }
         }
 
-        public Point? OriginPoint
+        public Point OriginPoint
         {
-            get { return _OriginPoint; }
+            get { return (Point)_OriginPoint; }
             set { _OriginPoint = value; OnPropertyChanged(); }
         }
-        public Point? XPoint
+        public Point XPoint
         {
-            get { return _XPoint; }
+            get { return (Point)_XPoint; }
             set { _XPoint = value; OnPropertyChanged(); }
         }
-        public Point? YPoint
+        public Point YPoint
         {
-            get { return _YPoint; }
+            get { return (Point)_YPoint; }
             set { _YPoint = value; OnPropertyChanged(); }
         }
         public List<PlotParams> Table

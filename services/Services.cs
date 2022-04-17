@@ -9,11 +9,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using MathNet.Numerics;
-using Color = System.Drawing.Color;
 using System.Windows.Shapes;
-using Brushes = System.Windows.Media.Brushes;
 using System.Reflection;
-using Microsoft.Win32;
+using Color = System.Drawing.Color;
+using Brushes = System.Windows.Media.Brushes;
+
 
 namespace Aggregator.services
 {
@@ -153,17 +153,30 @@ namespace Aggregator.services
             return (System.Windows.Media.Brush)properties[random].GetValue(null, null);
         }
 
-        public List<PlotParams> PopulateTable(double[] Q, double[] H, double[] N, double[] Eff)
+        public Tuple<double, double, double, double> CalculateCoefs(PlotParams MaxParams, PlotParams MinParams, System.Windows.Point Origin, System.Windows.Point X, System.Windows.Point Y)
         {
+            var DeltaY = Origin.Y - Y.Y;
+            var kq = (MaxParams.power - MinParams.power) / (X.X - Origin.X);
+            var kh = (MaxParams.height - MinParams.height) / DeltaY;
+            var kn = (MaxParams.kilowats - MinParams.kilowats) / DeltaY;
+            var keff = (MaxParams.efficiency - MinParams.efficiency) / DeltaY;
+
+            return new Tuple<double, double, double, double>(kq, kh, kn, keff);
+        }
+
+        public List<PlotParams> PopulateTable(double[] Q, double[] H, double[] N, double[] Eff, Tuple<double, double, double, double> coefs, double DeltaPower, double DeltaY)
+        {
+            var (kq, kh, kn, keff) = coefs;
+
             var table = new List<PlotParams>();
             for (int i = 0; i < Q.Length; i++)
             {
                 var data = new PlotParams();
                 data.id = i + 1;
-                data.power = (float)Q[i];
-                data.height = (float)H[i];
-                data.kilowats = (float)N[i];
-                data.efficiency = (float)Eff[i];
+                data.power = (float)((Q[i] - DeltaPower) * kq);
+                data.height = (float)((H[i] - DeltaY) * kh);
+                data.kilowats = (float)((N[i] - DeltaY) * kn);
+                data.efficiency = (float)((Eff[i] - DeltaY) * keff);
                 table.Add(data);
             }
 
