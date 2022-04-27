@@ -72,24 +72,32 @@ namespace Aggregator.services
         {
             return (int)(color.R * 0.299 + color.G * 0.578 + color.B * 0.114);
         }
-        public Tuple<Func<double, double>, double, double, double, double> ParsePlot(string Path, System.Windows.Media.Color TargetColor, Tuple<double, double> sizes)
+        public Tuple<Func<double, double>, double, double, double, double> ParsePlot(string Path, System.Windows.Media.Color TargetColor, Tuple<double, double> sizes, Tuple<System.Windows.Point, System.Windows.Point, System.Windows.Point> boundaries)
         {
-            return ParsePlot(Path, System.Drawing.Color.FromArgb(TargetColor.A, TargetColor.R, TargetColor.G, TargetColor.B), sizes);
+            return ParsePlot(Path, System.Drawing.Color.FromArgb(TargetColor.A, TargetColor.R, TargetColor.G, TargetColor.B), sizes, boundaries);
         }
-        public Tuple<Func<double, double>, double, double, double, double> ParsePlot(string Path, System.Drawing.Color TargetColor, Tuple<double, double> sizes)
+        public Tuple<Func<double, double>, double, double, double, double> ParsePlot(string Path, Color TargetColor, Tuple<double, double> sizes, Tuple<System.Windows.Point, System.Windows.Point, System.Windows.Point> boundaries)
         {
-            int ColorDelta = 10;
-            int Degree = 7;
+            var (YPoint, XPoint, OriginPoint) = boundaries;
+            int ColorDelta = 3;
+            int Degree = 9;
+            
+            Bitmap img = new Bitmap(Image.FromFile(Path));
+            double kx = sizes.Item1 / img.Width;
+            double ky = sizes.Item2 / img.Height;
+
+
             List<double> x = new List<double>();
             List<double> y = new List<double>();
-            Bitmap img = new Bitmap(Image.FromFile(Path));
-
             for (int i = 0; i < img.Width; i++)
                 for (int j = 0; j < img.Height; j++)
                 {
                     int TargetGrey = ColorToGrayScale(TargetColor);
                     int PixelGrey = ColorToGrayScale(img.GetPixel(i, j));
-                    if (PixelGrey > TargetGrey - ColorDelta && PixelGrey < TargetGrey + ColorDelta)
+                    if (PixelGrey > TargetGrey - ColorDelta 
+                        && PixelGrey < TargetGrey + ColorDelta
+                        && j  < OriginPoint.Y * ky && j > YPoint.Y * ky
+                        && i > OriginPoint.X * kx  && i < XPoint.X * kx)
                     {
                         x.Add(i);
                         y.Add(img.Height - j); // To mirror
@@ -97,8 +105,7 @@ namespace Aggregator.services
                 }
 
             var f = Fit.PolynomialFunc(x.ToArray(), y.ToArray(), Degree);
-            double kx = sizes.Item1 / img.Width;
-            double ky = sizes.Item2 / img.Height;
+            
 
             return new Tuple<Func<double, double>, double, double, double, double>(f, kx, ky, x.Max(), x.Min());
 

@@ -148,11 +148,11 @@ namespace Aggregator
             var MinXPlot = ViewModel.MinPlotParams.power;
             var MaxXPlot = ViewModel.MaxPlotParams.power;
 
+            var boundaries = new Tuple<Point, Point, Point>(MaxYPoint, MaxXPoint, OrigPoint);
 
-
-            var (f1, kx1, ky1, xmax1, xmin1) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
-            var (f2, kx2, ky2, xmax2, xmin2) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
-            var (f3, kx3, ky3, xmax3, xmin3) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color3, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight));
+            var (f1, kx1, ky1, xmax1, xmin1) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color1, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight), boundaries);
+            var (f2, kx2, ky2, xmax2, xmin2) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color2, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight), boundaries);
+            var (f3, kx3, ky3, xmax3, xmin3) = services.ParsePlot(ViewModel.ImagePath, ViewModel.Color3, new Tuple<double, double>(imgPhoto.ActualWidth, imgPhoto.ActualHeight), boundaries);
             
             var MinMaxX = Math.Min(xmax1, Math.Min(xmax2, xmax3));
             var MaxMinX = Math.Max(xmin1, Math.Max(xmin2, xmin3));
