@@ -84,13 +84,13 @@
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="5" Text="Factory manufacturer" FontWeight="Normal" FontFamily="Cambria" />
-                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding FactoryName}" />
+                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding FactoryName1}" />
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="5" Text="ECP brand" FontWeight="Normal" FontFamily="Cambria" />
-                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding EcpBrand}" />
+                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding EcpBrand1}" />
                                 </StackPanel>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
@@ -113,7 +113,7 @@
                                         <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0"  >
                                             <TextBox.Text>
-                                                <Binding Path="OptimalParams.power">
+                                                <Binding Path="OptimalParams1.power">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -122,7 +122,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="OptimalParams.height">
+                                                <Binding Path="OptimalParams1.height">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -131,7 +131,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="OptimalParams.kilowats">
+                                                <Binding Path="OptimalParams1.kilowats">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -140,7 +140,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="OptimalParams.efficiency">
+                                                <Binding Path="OptimalParams1.efficiency">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -159,7 +159,7 @@
                                     <TextBlock Grid.Column="0"  Margin="2,2,2,2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                     <TextBox  Grid.Column="1" MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
                                         <TextBox.Text>
-                                            <Binding Path="Stages">
+                                            <Binding Path="Stages1">
                                                 <Binding.ValidationRules>
                                                     <ExceptionValidationRule />
                                                 </Binding.ValidationRules>
@@ -192,7 +192,7 @@
                                         <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MinPlotParams.power">
+                                                <Binding Path="MinPlotParams1.power">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -201,7 +201,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MinPlotParams.height">
+                                                <Binding Path="MinPlotParams1.height">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -210,7 +210,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MinPlotParams.kilowats">
+                                                <Binding Path="MinPlotParams1.kilowats">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -219,7 +219,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MinPlotParams.efficiency">
+                                                <Binding Path="MinPlotParams1.efficiency">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -228,7 +228,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0">
                                             <TextBox.Text>
-                                                <Binding Path="MaxPlotParams.power">
+                                                <Binding Path="MaxPlotParams1.power">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -237,7 +237,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MaxPlotParams.height">
+                                                <Binding Path="MaxPlotParams1.height">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -246,7 +246,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MaxPlotParams.kilowats">
+                                                <Binding Path="MaxPlotParams1.kilowats">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -255,7 +255,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="5" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MaxPlotParams.efficiency">
+                                                <Binding Path="MaxPlotParams1.efficiency">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -311,7 +311,7 @@
                                     <TextBlock Grid.Column="0"  Margin="2,2,10,2" Text="Steps:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
                                     <TextBox  Grid.Column="1" MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
                                         <TextBox.Text>
-                                            <Binding Path="Steps">
+                                            <Binding Path="Steps1">
                                                 <Binding.ValidationRules>
                                                     <ExceptionValidationRule />
                                                 </Binding.ValidationRules>
@@ -337,7 +337,7 @@
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="Q" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="Ro">
+                                                <Binding Path="Ro1">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -346,7 +346,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="Mu">
+                                                <Binding Path="Mu1">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -355,7 +355,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="Q">
+                                                <Binding Path="Q1">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -398,7 +398,7 @@
                                     <Border Grid.Row="1" Height="30"
 					                HorizontalAlignment="Stretch"
 					                BorderBrush="Black" BorderThickness="1" Margin="5">
-                                        <Rectangle Fill="{Binding ElementName=imgPhoto, Path=SelectedColor,
+                                        <Rectangle Fill="{Binding ElementName=imgPhoto1, Path=SelectedColor,
 					                Converter={StaticResource colorToBrushConverter}}"/>
                                     </Border>
                                     <Grid>
@@ -410,17 +410,17 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <Button Grid.Column="0" x:Name="button_line_color_1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush1}" Click="button_line_color_1_Click" >
+                                        <Button Grid.Column="0" x:Name="button_line_color_1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush11}" Click="button_line_color_1_Click" >
                                             <Button.Content>
                                                 <TextBlock TextWrapping="Wrap" Text="Line color H=H(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="1" x:Name="button_line_color_2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush2}" Click="button_line_color_2_Click">
+                                        <Button Grid.Column="1" x:Name="button_line_color_2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush12}" Click="button_line_color_2_Click">
                                             <Button.Content>
                                                 <TextBlock TextWrapping="Wrap" Text="Line color N=N(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="2" x:Name="button_line_color_3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush3}" Click="button_line_color_3_Click" >
+                                        <Button Grid.Column="2" x:Name="button_line_color_3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush13}" Click="button_line_color_3_Click" >
                                             <Button.Content>
                                                 <TextBlock TextWrapping="Wrap" Text="Line color eff=eff(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
                                             </Button.Content>
@@ -443,9 +443,9 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <CheckBox Grid.Column="0" Content="H=H(Q)" ClickMode="Press" IsChecked="{Binding HIsChecked}" />
-                                        <CheckBox Grid.Column="1" Content="N=N(Q)"  ClickMode="Press" IsChecked="{Binding NIsChecked}" />
-                                        <CheckBox Grid.Column="2" Content="eff=eff(Q)"  ClickMode="Press" IsChecked="{Binding EffIsChecked}" />
+                                        <CheckBox Grid.Column="0" Content="H=H(Q)" ClickMode="Press" IsChecked="{Binding HIsChecked1}" />
+                                        <CheckBox Grid.Column="1" Content="N=N(Q)"  ClickMode="Press" IsChecked="{Binding NIsChecked1}" />
+                                        <CheckBox Grid.Column="2" Content="eff=eff(Q)"  ClickMode="Press" IsChecked="{Binding EffIsChecked1}" />
                                     </Grid>
                                 </StackPanel>
                             </Border>
@@ -459,7 +459,7 @@
                             </Grid.RowDefinitions>
                        
                             <DataGrid Grid.Row="0"  x:Name="ImageParsedGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" IsReadOnly="True"
-                            RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding Table}">
+                            RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding Table1}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="№" Binding="{Binding id}" Width="0.2*" />
                                     <DataGridTextColumn Header="Q,m3/day" Binding="{Binding power, Converter={StaticResource precisionConverter} }" Width="0.3*" />
@@ -480,7 +480,7 @@
                 </TabControl>
                 <!--<Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>-->
                 <!--<oxy:PlotView Grid.Column="2" Model="{Binding ChartImageModel }" Background="Transparent" Margin="50,49,50,50"/>-->
-                <services:ImageColorPicker Source="{Binding Image}"  Grid.Column="2" x:Name="imgPhoto"  Stretch="Fill" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <services:ImageColorPicker Source="{Binding Image1}"  Grid.Column="2" x:Name="imgPhoto1"  Stretch="Fill" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Canvas 
                     Grid.Column="2" 
                     Grid.RowSpan="2"

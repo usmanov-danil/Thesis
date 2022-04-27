@@ -67,283 +67,284 @@ namespace Aggregator
             }
         }
 
-
-        // Image processing
-        private string? _ImagePath;
-        private BitmapImage? _Image;
-        private string _FactoryName = "";
-        private string _EcpBrand = "";
-        private int _Stages = 5;
-        private double _Steps = 2.5;
-        private PlotParams _OptimalParams = new PlotParams();
-        private PlotParams _MinPlotParams = new PlotParams();
-        private PlotParams _MaxPlotParams = new PlotParams();
-        private double _Mu = 0;
-        private double _Ro = 0;
-        private double _Q = 0;
-        private bool _HIsChecked = true;
-        private bool _NIsChecked = true;
-        private bool _EffIsChecked = true;
-        private Color _Color1;
-        private Color _Color2;
-        private Color _Color3;
-        private Brush? _ColorBrush1;
-        private Brush? _ColorBrush2;
-        private Brush? _ColorBrush3;
+        // Images
         private ColorToBrushConverter _ColorToBrushConverter = new ColorToBrushConverter();
-        private Point? _OriginPoint = null;
-        private Point? _XPoint = null;
-        private Point? _YPoint = null;
-        private List<PlotParams> _Table;
 
-        public string ImagePath
+        // Image processing 1
+        private string? _ImagePath1;
+        private BitmapImage? _Image1;
+        private string _FactoryName1 = "";
+        private string _EcpBrand1 = "";
+        private int _Stages1 = 5;
+        private double _Steps1 = 2.5;
+        private PlotParams _OptimalParams1 = new PlotParams();
+        private PlotParams _MinPlotParams1 = new PlotParams();
+        private PlotParams _MaxPlotParams1 = new PlotParams();
+        private double _Mu1 = 0;
+        private double _Ro1 = 0;
+        private double _Q1 = 0;
+        private bool _HIsChecked1 = true;
+        private bool _NIsChecked1 = true;
+        private bool _EffIsChecked1 = true;
+        private Color _Color11;
+        private Color _Color12;
+        private Color _Color13;
+        private Brush? _ColorBrush11;
+        private Brush? _ColorBrush12;
+        private Brush? _ColorBrush13;
+        private Point? _OriginPoint1 = null;
+        private Point? _XPoint1 = null;
+        private Point? _YPoint1 = null;
+        private List<PlotParams> _Table1;
+
+        public string ImagePath1
         {
-            get { return _ImagePath; }
+            get { return _ImagePath1; }
             set
             {
-                if (value != _ImagePath)
+                if (value != _ImagePath1)
                 {
-                    _ImagePath = value;
+                    _ImagePath1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public BitmapImage Image
+        public BitmapImage Image1
         {
-            get { return _Image; }
+            get { return _Image1; }
             set
             {
-                if (value != _Image)
+                if (value != _Image1)
                 {
-                    _Image = value;
+                    _Image1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public string FactoryName
+        public string FactoryName1
         {
-            get { return _FactoryName; }
+            get { return _FactoryName1; }
             set
             {
-                if (value != _FactoryName)
+                if (value != _FactoryName1)
                 {
-                    _FactoryName = value;
+                    _FactoryName1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public string EcpBrand
+        public string EcpBrand1
         {
-            get { return _EcpBrand; }
+            get { return _EcpBrand1; }
             set
             {
-                if (value != _EcpBrand)
+                if (value != _EcpBrand1)
                 {
-                    _EcpBrand = value;
+                    _EcpBrand1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public int Stages
+        public int Stages1
         {
-            get { return _Stages; }
+            get { return _Stages1; }
             set
             {
-                if (value != _Stages)
+                if (value != _Stages1)
                 {
-                    _Stages = value;
+                    _Stages1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public double Steps
+        public double Steps1
         {
-            get { return _Steps; }
+            get { return _Steps1; }
             set
             {
-                if (value != _Steps)
+                if (value != _Steps1)
                 {
-                    _Steps = value;
+                    _Steps1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public PlotParams OptimalParams
+        public PlotParams OptimalParams1
         {
-            get { return _OptimalParams; }
+            get { return _OptimalParams1; }
             set
             {
-                _OptimalParams = value;
+                _OptimalParams1 = value;
                 OnPropertyChanged();
             }
         }
-        public PlotParams MinPlotParams
+        public PlotParams MinPlotParams1
         {
-            get { return _MinPlotParams; }
+            get { return _MinPlotParams1; }
             set
             {
-                _MinPlotParams = value;
+                _MinPlotParams1 = value;
                 OnPropertyChanged(nameof(value));
             }
         }
-        public PlotParams MaxPlotParams
+        public PlotParams MaxPlotParams1
         {
-            get { return _MaxPlotParams; }
+            get { return _MaxPlotParams1; }
             set
             {
-                _MaxPlotParams = value;
+                _MaxPlotParams1 = value;
                 OnPropertyChanged(nameof(value));
             }
         }
 
-        public double Mu
+        public double Mu1
         {
-            get { return _Mu; }
+            get { return _Mu1; }
             set
             {
-                if (value != _Mu)
+                if (value != _Mu1)
                 {
-                    _Mu = value;
+                    _Mu1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public double Ro
+        public double Ro1
         {
-            get { return _Ro; }
+            get { return _Ro1; }
             set
             {
-                if (value != _Ro)
+                if (value != _Ro1)
                 {
-                    _Ro = value;
+                    _Ro1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public double Q
+        public double Q1
         {
-            get { return _Q; }
+            get { return _Q1; }
             set
             {
-                if (value != _Q)
+                if (value != _Q1)
                 {
-                    _Q = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool HIsChecked
-        {
-            get { return _HIsChecked; }
-            set
-            {
-                if (value != _HIsChecked)
-                {
-                    _HIsChecked = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public bool NIsChecked
-        {
-            get { return _NIsChecked; }
-            set
-            {
-                if (value != _NIsChecked)
-                {
-                    _NIsChecked = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public bool EffIsChecked
-        {
-            get { return _EffIsChecked; }
-            set
-            {
-                if (value != _EffIsChecked)
-                {
-                    _EffIsChecked = value;
+                    _Q1 = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public Color Color1
+        public bool HIsChecked1
         {
-            get { return _Color1; }
+            get { return _HIsChecked1; }
             set
             {
-                if (value != _Color1)
+                if (value != _HIsChecked1)
                 {
-                    _Color1 = value;
-                    ColorBrush1 = (Brush)_ColorToBrushConverter.Convert(_Color1, typeof(Brush), null, null);
+                    _HIsChecked1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public Color Color2
+        public bool NIsChecked1
         {
-            get { return _Color2; }
+            get { return _NIsChecked1; }
             set
             {
-                if (value != _Color2)
+                if (value != _NIsChecked1)
                 {
-                    _Color2 = value;
-                    ColorBrush2 = (Brush)_ColorToBrushConverter.Convert(_Color2, typeof(Brush), null, null);
+                    _NIsChecked1 = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public Color Color3
+        public bool EffIsChecked1
         {
-            get { return _Color3; }
+            get { return _EffIsChecked1; }
             set
             {
-                if (value != _Color3)
+                if (value != _EffIsChecked1)
                 {
-                    _Color3 = value;
-                    ColorBrush3 = (Brush)_ColorToBrushConverter.Convert(_Color3, typeof(Brush), null, null);
+                    _EffIsChecked1 = value;
                     OnPropertyChanged();
                 }
             }
-        }
-        public Brush ColorBrush3
-        {
-            get { return _ColorBrush3; }
-            set { _ColorBrush3 = value; OnPropertyChanged(); }
-        }
-        public Brush ColorBrush1
-        {
-            get { return _ColorBrush1; }
-            set { _ColorBrush1 = value; OnPropertyChanged(); }
-        }
-        public Brush ColorBrush2
-        {
-            get { return _ColorBrush2; }
-            set { _ColorBrush2 = value; OnPropertyChanged(); }
         }
 
-        public Point OriginPoint
+        public Color Color11
         {
-            get { return (Point)_OriginPoint; }
-            set { _OriginPoint = value; OnPropertyChanged(); }
+            get { return _Color11; }
+            set
+            {
+                if (value != _Color11)
+                {
+                    _Color11 = value;
+                    ColorBrush11 = (Brush)_ColorToBrushConverter.Convert(_Color11, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
         }
-        public Point XPoint
+        public Color Color12
         {
-            get { return (Point)_XPoint; }
-            set { _XPoint = value; OnPropertyChanged(); }
+            get { return _Color12; }
+            set
+            {
+                if (value != _Color12)
+                {
+                    _Color12 = value;
+                    ColorBrush12 = (Brush)_ColorToBrushConverter.Convert(_Color12, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
         }
-        public Point YPoint
+        public Color Color13
         {
-            get { return (Point)_YPoint; }
-            set { _YPoint = value; OnPropertyChanged(); }
+            get { return _Color13; }
+            set
+            {
+                if (value != _Color13)
+                {
+                    _Color13 = value;
+                    ColorBrush13 = (Brush)_ColorToBrushConverter.Convert(_Color13, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
         }
-        public List<PlotParams> Table
+        public Brush ColorBrush13
         {
-            get { return _Table; }
-            set { _Table = value; OnPropertyChanged(); }
+            get { return _ColorBrush13; }
+            set { _ColorBrush13 = value; OnPropertyChanged(); }
+        }
+        public Brush ColorBrush11
+        {
+            get { return _ColorBrush11; }
+            set { _ColorBrush11 = value; OnPropertyChanged(); }
+        }
+        public Brush ColorBrush12
+        {
+            get { return _ColorBrush12; }
+            set { _ColorBrush12 = value; OnPropertyChanged(); }
+        }
+
+        public Point OriginPoint1
+        {
+            get { return (Point)_OriginPoint1; }
+            set { _OriginPoint1 = value; OnPropertyChanged(); }
+        }
+        public Point XPoint1
+        {
+            get { return (Point)_XPoint1; }
+            set { _XPoint1 = value; OnPropertyChanged(); }
+        }
+        public Point YPoint1
+        {
+            get { return (Point)_YPoint1; }
+            set { _YPoint1 = value; OnPropertyChanged(); }
+        }
+        public List<PlotParams> Table1
+        {
+            get { return _Table1; }
+            set { _Table1 = value; OnPropertyChanged(); }
         }
 
 
@@ -354,7 +355,7 @@ namespace Aggregator
 
         public bool IsPointsExist()
         {
-            return _OriginPoint != null && _XPoint != null && _YPoint != null;
+            return _OriginPoint1 != null && _XPoint1 != null && _YPoint1 != null;
         }
     }
 
