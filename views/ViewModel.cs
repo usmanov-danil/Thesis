@@ -69,7 +69,7 @@ namespace Aggregator
 
         // Images
         private ColorToBrushConverter _ColorToBrushConverter = new ColorToBrushConverter();
-
+        #region ECP
         // Image processing 1
         private string? _ImagePath1;
         private BitmapImage? _Image1;
@@ -196,7 +196,6 @@ namespace Aggregator
                 OnPropertyChanged(nameof(value));
             }
         }
-
         public double Mu1
         {
             get { return _Mu1; }
@@ -233,7 +232,6 @@ namespace Aggregator
                 }
             }
         }
-
         public bool HIsChecked1
         {
             get { return _HIsChecked1; }
@@ -270,7 +268,6 @@ namespace Aggregator
                 }
             }
         }
-
         public Color Color11
         {
             get { return _Color11; }
@@ -325,7 +322,6 @@ namespace Aggregator
             get { return _ColorBrush12; }
             set { _ColorBrush12 = value; OnPropertyChanged(); }
         }
-
         public Point OriginPoint1
         {
             get { return (Point)_OriginPoint1; }
@@ -346,17 +342,263 @@ namespace Aggregator
             get { return _Table1; }
             set { _Table1 = value; OnPropertyChanged(); }
         }
-
-
-
-
-
-
-
-        public bool IsPointsExist()
+        public bool IsPoints1Exist()
         {
             return _OriginPoint1 != null && _XPoint1 != null && _YPoint1 != null;
         }
+        #endregion
+
+
+        #region SEM
+        private string? _ImagePath2;
+        private BitmapImage? _Image2;
+        private string _FactoryName2 = "";
+        private string _SemBrand = "";
+        private SemPlotParams _MinPlotParams2 = new SemPlotParams();
+        private SemPlotParams _MaxPlotParams2 = new SemPlotParams();
+        private double _Steps2 = 2.5;
+        private Point? _OriginPoint2 = null;
+        private Point? _XPoint2 = null;
+        private Point? _YPoint2 = null;
+        private Color _Color21;
+        private Color _Color22;
+        private Color _Color23;
+        private Color _Color24;
+        private Brush? _ColorBrush21;
+        private Brush? _ColorBrush22;
+        private Brush? _ColorBrush23;
+        private Brush? _ColorBrush24;
+        private bool _SIsChecked2 = true;
+        private bool _IIsChecked2 = true;
+        private bool _EffIsChecked2 = true;
+        private bool _CosIsChecked2 = true;
+        private List<SemPlotParams> _Table2;
+
+        public string ImagePath2
+        {
+            get { return _ImagePath2; }
+            set
+            {
+                if (value != _ImagePath2)
+                {
+                    _ImagePath2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public BitmapImage Image2
+        {
+            get { return _Image2; }
+            set
+            {
+                if (value != _Image2)
+                {
+                    _Image2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string FactoryName2
+        {
+            get { return _FactoryName2; }
+            set
+            {
+                if (value != _FactoryName2)
+                {
+                    _FactoryName2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string SemBrand
+        {
+            get { return _SemBrand; }
+            set
+            {
+                if (value != _SemBrand)
+                {
+                    _SemBrand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public SemPlotParams MinPlotParams2
+        {
+            get { return _MinPlotParams2; }
+            set
+            {
+                _MinPlotParams2 = value;
+                OnPropertyChanged(nameof(value));
+            }
+        }
+        public SemPlotParams MaxPlotParams2
+        {
+            get { return _MaxPlotParams2; }
+            set
+            {
+                _MaxPlotParams2 = value;
+                OnPropertyChanged(nameof(value));
+            }
+        }
+        public double Steps2
+        {
+            get { return _Steps2; }
+            set
+            {
+                if (value != _Steps2)
+                {
+                    _Steps2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Point OriginPoint2
+        {
+            get { return (Point)_OriginPoint2; }
+            set { _OriginPoint2 = value; OnPropertyChanged(); }
+        }
+        public Point XPoint2
+        {
+            get { return (Point)_XPoint2; }
+            set { _XPoint2 = value; OnPropertyChanged(); }
+        }
+        public Point YPoint2
+        {
+            get { return (Point)_YPoint2; }
+            set { _YPoint2 = value; OnPropertyChanged(); }
+        }
+        public Color Color21
+        {
+            get { return _Color21; }
+            set
+            {
+                if (value != _Color21)
+                {
+                    _Color21 = value;
+                    ColorBrush21 = (Brush)_ColorToBrushConverter.Convert(_Color21, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Color Color22
+        {
+            get { return _Color22; }
+            set
+            {
+                if (value != _Color22)
+                {
+                    _Color22 = value;
+                    ColorBrush22 = (Brush)_ColorToBrushConverter.Convert(_Color22, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Color Color23
+        {
+            get { return _Color23; }
+            set
+            {
+                if (value != _Color23)
+                {
+                    _Color23 = value;
+                    ColorBrush23 = (Brush)_ColorToBrushConverter.Convert(_Color23, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Color Color24
+        {
+            get { return _Color24; }
+            set
+            {
+                if (value != _Color24)
+                {
+                    _Color24 = value;
+                    ColorBrush24 = (Brush)_ColorToBrushConverter.Convert(_Color24, typeof(Brush), null, null);
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
+        public Brush ColorBrush21
+        {
+            get { return _ColorBrush21; }
+            set { _ColorBrush21 = value; OnPropertyChanged(); }
+        }
+        public Brush ColorBrush22
+        {
+            get { return _ColorBrush22; }
+            set { _ColorBrush22 = value; OnPropertyChanged(); }
+        }
+        public Brush ColorBrush23
+        {
+            get { return _ColorBrush23; }
+            set { _ColorBrush23 = value; OnPropertyChanged(); }
+        }
+        public Brush ColorBrush24
+        {
+            get { return _ColorBrush24; }
+            set { _ColorBrush24 = value; OnPropertyChanged(); }
+        }
+        public bool SIsChecked2
+        {
+            get { return _SIsChecked2; }
+            set
+            {
+                if (value != _SIsChecked2)
+                {
+                    _SIsChecked2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool IIsChecked2
+        {
+            get { return _IIsChecked2; }
+            set
+            {
+                if (value != _IIsChecked2)
+                {
+                    _IIsChecked2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool EffIsChecked2
+        {
+            get { return _EffIsChecked2; }
+            set
+            {
+                if (value != _EffIsChecked2)
+                {
+                    _EffIsChecked2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool CosIsChecked2
+        {
+            get { return _CosIsChecked2; }
+            set
+            {
+                if (value != _CosIsChecked2)
+                {
+                    _CosIsChecked2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public List<SemPlotParams> Table2
+        {
+            get { return _Table2; }
+            set { _Table2 = value; OnPropertyChanged(); }
+        }
+
+        public bool IsPoints2Exist()
+        {
+            return _OriginPoint2 != null && _XPoint2 != null && _YPoint2 != null;
+        }
+        #endregion
     }
 
     public class ViewModelBase : INotifyPropertyChanged
@@ -365,8 +607,6 @@ namespace Aggregator
 
         protected void OnPropertyChanged([CallerMemberName] String propName = null)
         {
-            // C#6.O
-            // PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName
             if (PropertyChanged != null)
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
         }

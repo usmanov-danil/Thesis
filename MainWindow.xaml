@@ -62,12 +62,8 @@
 
             </Grid>
         </TabItem>
-        <TabItem Header="Image processing1">
+        <TabItem Header="ECP processing">
             <Grid Background="#FFE5E5E5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="279*"/>
-                    <RowDefinition Height="397*"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="31*" />
                     <ColumnDefinition Width="73*"/>
@@ -266,43 +262,6 @@
                                     </Grid>
                                 </StackPanel>
                             </Border>
-                            <!--<Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="Steps of the grid lines along the axes" FontWeight="Normal" FontFamily="Cambria" />
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.5*" />
-                                            <RowDefinition Height="0.5*" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="H, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="StepQ" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="StepH" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="StepPower" Margin="1,0,1,0" />
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="StepEff" Margin="1,0,1,0" />
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Horizontal" Margin="2">
-                                    <TextBlock Margin="2" Text="Feed Q(m3/day), H=0" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <TextBox MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="FeedQ" Margin="5,0,5,2" />
-                                </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Horizontal" Margin="2">
-                                    <TextBlock Margin="2" Text="Tab step with Q(m3/day)" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <TextBox MinWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="TabStep" Margin="5,0,5,2" />
-                                </StackPanel>
-                            </Border> -->
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -473,31 +432,15 @@
                                 <Button Content="Download CSV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_download_csv_Click" />
                             </Border>
                         </Grid>
-
-
-
-
                     </TabItem>
                 </TabControl>
-                <!--<Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>-->
-                <!--<oxy:PlotView Grid.Column="2" Model="{Binding ChartImageModel }" Background="Transparent" Margin="50,49,50,50"/>-->
-                <services:ImageColorPicker Source="{Binding Image1}"  Grid.Column="3" x:Name="imgPhoto1"  Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,59,0,0" Grid.Row="1"/>
-                <Canvas 
-                    Grid.Column="3" 
-                    Grid.RowSpan="2"
-                    x:Name="Canvas"
-                >
-                </Canvas>
-
-
+                <services:ImageColorPicker Source="{Binding Image1}"  Grid.Column="3" x:Name="imgPhoto1"  Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" />
+                <Canvas Grid.Column="3" x:Name="Canvas"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Image processing2">
+
+        <TabItem Header="SEM processing">
             <Grid Background="#FFE5E5E5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="279*"/>
-                    <RowDefinition Height="397*"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="31*" />
                     <ColumnDefinition Width="73*"/>
@@ -505,12 +448,12 @@
                     <ColumnDefinition Width="987*" />
                 </Grid.ColumnDefinitions>
                 <GridSplitter Grid.Column="3" HorizontalAlignment="Left" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A" Grid.RowSpan="2" />
+                
                 <TabControl Grid.Column="0" Background="#FFE5E5E5" Grid.ColumnSpan="3" Grid.RowSpan="2">
                     <TabItem Header="Properties" IsSelected="True" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="70">
-
                         <StackPanel  Orientation="Vertical" Height="auto" VerticalAlignment="Stretch">
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
-                                <Button x:Name="button_open_img2" Content="Open image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_open_img_Click" />
+                                <Button x:Name="button_open_img2" Content="Open image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_open_img2_Click" />
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
                                 <StackPanel Orientation="Vertical">
@@ -520,84 +463,9 @@
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="ECP brand" FontWeight="Normal" FontFamily="Cambria" />
-                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding EcpBrand2}" />
+                                    <TextBlock Margin="5" Text="SEM brand" FontWeight="Normal" FontFamily="Cambria" />
+                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding SemBrand}" />
                                 </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="Optimal parameters for ECP work in water" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center"/>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.5*" />
-                                            <RowDefinition Height="0.5*" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0"  >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams2.power">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams2.height">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams2.kilowats">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams2.efficiency">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.5*"/>
-                                        <ColumnDefinition Width="0.5*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"  Margin="2,2,2,2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <TextBox  Grid.Column="1" MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
-                                        <TextBox.Text>
-                                            <Binding Path="Stages2">
-                                                <Binding.ValidationRules>
-                                                    <ExceptionValidationRule />
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
-                                </Grid>
                             </Border>
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
@@ -617,9 +485,9 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Min" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" />
                                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Max" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="S, d.e." FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="I, A" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
@@ -632,7 +500,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MinPlotParams2.height">
+                                                <Binding Path="MinPlotParams2.s">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -641,7 +509,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MinPlotParams2.kilowats">
+                                                <Binding Path="MinPlotParams2.i">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -668,7 +536,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MaxPlotParams2.height">
+                                                <Binding Path="MaxPlotParams2.s">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -677,7 +545,7 @@
                                         </TextBox>
                                         <TextBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
-                                                <Binding Path="MaxPlotParams2.kilowats">
+                                                <Binding Path="MaxPlotParams2.i">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
@@ -714,52 +582,7 @@
                                     </TextBox>
                                 </Grid>
                             </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical" Margin="2">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.5*" />
-                                            <RowDefinition Height="0.5*" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="ρ" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="μ" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Q" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="Ro2">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="Mu2">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="Q2">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </Grid>
-
-                                </StackPanel>
-                            </Border>
+                            
                             <Separator Background="Transparent" Height="20" />
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
@@ -778,15 +601,13 @@
                                         <Label Grid.Column="0" Grid.Row="0" Content="Origin" HorizontalAlignment="Center"/>
                                         <Label Grid.Column="1" Grid.Row="0" Content="X axe" HorizontalAlignment="Center"/>
                                         <Label Grid.Column="2" Grid.Row="0" Content="Y axe" HorizontalAlignment="Center"/>
-                                        <Button Grid.Column="0" Grid.Row="1" x:Name="orig2" Content="OXY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="orig_Click"/>
-                                        <Button Grid.Column="1" Grid.Row="1" x:Name="x2" Content="X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="x_Click"/>
-                                        <Button Grid.Column="2" Grid.Row="1" x:Name="y2" Content="Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="y_Click"/>
+                                        <Button Grid.Column="0" Grid.Row="1" x:Name="orig2" Content="OXY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="orig2_Click"/>
+                                        <Button Grid.Column="1" Grid.Row="1" x:Name="x2" Content="X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="x2_Click"/>
+                                        <Button Grid.Column="2" Grid.Row="1" x:Name="y2" Content="Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="y2_Click"/>
 
                                     </Grid>
                                 </StackPanel>
                             </Border>
-
-
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical" Margin="2">
                                     <Border Grid.Row="1" Height="30"
@@ -797,48 +618,56 @@
                                     </Border>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.25*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <Button Grid.Column="0" x:Name="button_line_color_21" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush21}" Click="button_line_color_1_Click" >
+                                        <Button Grid.Column="0" x:Name="button_line_color_21" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush21}" Click="button_line_color_21_Click" >
                                             <Button.Content>
-                                                <TextBlock TextWrapping="Wrap" Text="Line color H=H(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                                <TextBlock TextWrapping="Wrap" Text="S(Y)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="1" x:Name="button_line_color_22" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush22}" Click="button_line_color_2_Click">
+                                        <Button Grid.Column="1" x:Name="button_line_color_22" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush22}" Click="button_line_color_22_Click">
                                             <Button.Content>
-                                                <TextBlock TextWrapping="Wrap" Text="Line color N=N(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                                <TextBlock TextWrapping="Wrap" Text="I(Y)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="2" x:Name="button_line_color_23" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush23}" Click="button_line_color_3_Click" >
+                                        <Button Grid.Column="2" x:Name="button_line_color_23" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush23}" Click="button_line_color_23_Click" >
                                             <Button.Content>
-                                                <TextBlock TextWrapping="Wrap" Text="Line color eff=eff(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                                <TextBlock TextWrapping="Wrap" Text="Eff(Y)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button Grid.Column="3" x:Name="button_line_color_24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush24}" Click="button_line_color_24_Click" >
+                                            <Button.Content>
+                                                <TextBlock TextWrapping="Wrap" Text="CosF(Y)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
                                             </Button.Content>
                                         </Button>
                                     </Grid>
-                                    <Button x:Name="button_make_table2" Content="Digitize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA"  Click="button_make_table_Click" />
+                                    <Button x:Name="button_make_table2" Content="Digitize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA"  Click="button_make_table2_Click" />
                                 </StackPanel>
                             </Border>
-
                             <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="2" Text="View dependencies" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.25*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <CheckBox Grid.Column="0" Content="H=H(Q)" ClickMode="Press" IsChecked="{Binding HIsChecked2}" />
-                                        <CheckBox Grid.Column="1" Content="N=N(Q)"  ClickMode="Press" IsChecked="{Binding NIsChecked2}" />
-                                        <CheckBox Grid.Column="2" Content="eff=eff(Q)"  ClickMode="Press" IsChecked="{Binding EffIsChecked2}" />
+                                        <CheckBox Grid.Column="0" Content="S(Y)" ClickMode="Press" IsChecked="{Binding SIsChecked2}" />
+                                        <CheckBox Grid.Column="1" Content="I(Y)"  ClickMode="Press" IsChecked="{Binding IIsChecked2}" />
+                                        <CheckBox Grid.Column="2" Content="Eff(Y)"  ClickMode="Press" IsChecked="{Binding EffIsChecked2}" />
+                                        <CheckBox Grid.Column="3" Content="CosF(Y)"  ClickMode="Press" IsChecked="{Binding CosIsChecked2}" />
+
                                     </Grid>
                                 </StackPanel>
                             </Border>
@@ -854,15 +683,16 @@
                             <DataGrid Grid.Row="0"  x:Name="ImageParsedGrid2" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" IsReadOnly="True"
                             RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding Table2}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="№" Binding="{Binding id}" Width="0.2*" />
-                                    <DataGridTextColumn Header="Q,m3/day" Binding="{Binding power, Converter={StaticResource precisionConverter} }" Width="0.3*" />
-                                    <DataGridTextColumn Header="H,m" Binding="{Binding height, Converter={StaticResource precisionConverter} }" Width="0.25*" />
-                                    <DataGridTextColumn Header="N,kWt" Binding="{Binding kilowats, Converter={StaticResource precisionConverter} }" Width="0.3*" />
-                                    <DataGridTextColumn Header="eff,%" Binding="{Binding efficiency, Converter={StaticResource precisionConverter}}" Width="0.25*" />
+                                    <DataGridTextColumn Header="№" Binding="{Binding id}" Width="0.15*" />
+                                    <DataGridTextColumn Header="N,kWt" Binding="{Binding power, Converter={StaticResource precisionConverter} }" Width="0.2*" />
+                                    <DataGridTextColumn Header="S,rpm" Binding="{Binding s, Converter={StaticResource precisionConverter} }" Width="0.2*" />
+                                    <DataGridTextColumn Header="I,A" Binding="{Binding i, Converter={StaticResource precisionConverter} }" Width="0.15*" />
+                                    <DataGridTextColumn Header="eff,%" Binding="{Binding efficiency, Converter={StaticResource precisionConverter} }" Width="0.2*" />
+                                    <DataGridTextColumn Header="cosF,%" Binding="{Binding cos, Converter={StaticResource precisionConverter}}" Width="0.25*" />
                                 </DataGrid.Columns>
                             </DataGrid>
                             <Border Grid.Row="1" Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="2,2,2,2" Margin="0,2,0,0">
-                                <Button Content="Download CSV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_download_csv_Click" />
+                                <Button Content="Download CSV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_download_csv2_Click" />
                             </Border>
                         </Grid>
 
@@ -871,406 +701,9 @@
 
                     </TabItem>
                 </TabControl>
-                <!--<Image Grid.Column="1" x:Name="imgPhoto" Stretch="Fill" Margin="50,49,50,50"/>-->
-                <!--<oxy:PlotView Grid.Column="2" Model="{Binding ChartImageModel }" Background="Transparent" Margin="50,49,50,50"/>-->
-                <services:ImageColorPicker Source="{Binding Image2}"  Grid.Column="3" x:Name="imgPhoto2"  Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,59,0,0" Grid.Row="1"/>
-                <Canvas 
-                    Grid.Column="3" 
-                    Grid.RowSpan="2"
-                    x:Name="Canvas2"
-                >
-                </Canvas>
-
-
-            </Grid>
-        </TabItem>
-        <TabItem Header="Image processing3">
-            <Grid Background="#FFE5E5E5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="279*"/>
-                    <RowDefinition Height="397*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="31*" />
-                    <ColumnDefinition Width="73*"/>
-                    <ColumnDefinition Width="143*"/>
-                    <ColumnDefinition Width="987*" />
-                </Grid.ColumnDefinitions>
-                <GridSplitter Grid.Column="3" HorizontalAlignment="Left" Width="5" Height="Auto" Focusable="False" MinWidth="0.25" MaxWidth="0.251" Background="#FF6A6A6A" Grid.RowSpan="2" />
-                <TabControl Grid.Column="0" Background="#FFE5E5E5" Grid.ColumnSpan="3" Grid.RowSpan="2">
-                    <TabItem Header="Properties" IsSelected="True" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="70">
-
-                        <StackPanel  Orientation="Vertical" Height="auto" VerticalAlignment="Stretch">
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
-                                <Button x:Name="button_open_img3" Content="Open image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_open_img_Click" />
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2" Margin="0,7,0,0">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="Factory manufacturer" FontWeight="Normal" FontFamily="Cambria" />
-                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding FactoryName3}" />
-                                </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="ECP brand" FontWeight="Normal" FontFamily="Cambria" />
-                                    <TextBox MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,2" Text="{Binding EcpBrand3}" />
-                                </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="Optimal parameters for ECP work in water" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center"/>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.5*" />
-                                            <RowDefinition Height="0.5*" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0"  >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams3.power">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams3.height">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams3.kilowats">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="OptimalParams3.efficiency">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.5*"/>
-                                        <ColumnDefinition Width="0.5*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"  Margin="2,2,2,2" Text="Number of stages:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <TextBox  Grid.Column="1" MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
-                                        <TextBox.Text>
-                                            <Binding Path="Stages3">
-                                                <Binding.ValidationRules>
-                                                    <ExceptionValidationRule />
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
-                                </Grid>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="5" Text="Plot parameters" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center" />
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.12*" />
-                                            <ColumnDefinition Width="0.3*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.3*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.33*" />
-                                            <RowDefinition Height="0.33*" />
-                                            <RowDefinition Height="0.33*" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Min" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" />
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Max" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Qo m3/day" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="H, m" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="MinPlotParams3.power">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="MinPlotParams3.height">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="MinPlotParams3.kilowats">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="MinPlotParams3.efficiency">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0">
-                                            <TextBox.Text>
-                                                <Binding Path="MaxPlotParams3.power">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="MaxPlotParams3.height">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="MaxPlotParams3.kilowats">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="5" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="MaxPlotParams3.efficiency">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.5*"/>
-                                        <ColumnDefinition Width="0.5*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"  Margin="2,2,10,2" Text="Steps:" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-                                    <TextBox  Grid.Column="1" MinWidth="110" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,2" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" >
-                                        <TextBox.Text>
-                                            <Binding Path="Steps3">
-                                                <Binding.ValidationRules>
-                                                    <ExceptionValidationRule />
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
-                                </Grid>
-                            </Border>
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical" Margin="2">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.5*" />
-                                            <RowDefinition Height="0.5*" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="ρ" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="μ" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Q" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="Ro3">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="Mu3">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
-                                            <TextBox.Text>
-                                                <Binding Path="Q3">
-                                                    <Binding.ValidationRules>
-                                                        <ExceptionValidationRule />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </Grid>
-
-                                </StackPanel>
-                            </Border>
-                            <Separator Background="Transparent" Height="20" />
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical">
-                                    <Label Content="Choose corners of the plot on image" HorizontalAlignment="Center"/>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.33*"/>
-                                            <ColumnDefinition Width="0.33*"/>
-                                            <ColumnDefinition Width="0.33*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.3*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-
-                                        <Label Grid.Column="0" Grid.Row="0" Content="Origin" HorizontalAlignment="Center"/>
-                                        <Label Grid.Column="1" Grid.Row="0" Content="X axe" HorizontalAlignment="Center"/>
-                                        <Label Grid.Column="2" Grid.Row="0" Content="Y axe" HorizontalAlignment="Center"/>
-                                        <Button Grid.Column="0" Grid.Row="1" x:Name="orig3" Content="OXY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="orig_Click"/>
-                                        <Button Grid.Column="1" Grid.Row="1" x:Name="x3" Content="X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="x_Click"/>
-                                        <Button Grid.Column="2" Grid.Row="1" x:Name="y3" Content="Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" FontSize="12" HorizontalContentAlignment="Center" Click="y_Click"/>
-
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-
-
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical" Margin="2">
-                                    <Border Grid.Row="1" Height="30"
-					                HorizontalAlignment="Stretch"
-					                BorderBrush="Black" BorderThickness="1" Margin="5">
-                                        <Rectangle Fill="{Binding ElementName=imgPhoto3, Path=SelectedColor,
-					                Converter={StaticResource colorToBrushConverter}}"/>
-                                    </Border>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Button Grid.Column="0" x:Name="button_line_color_31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush31}" Click="button_line_color_1_Click" >
-                                            <Button.Content>
-                                                <TextBlock TextWrapping="Wrap" Text="Line color H=H(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button Grid.Column="1" x:Name="button_line_color_32" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush32}" Click="button_line_color_2_Click">
-                                            <Button.Content>
-                                                <TextBlock TextWrapping="Wrap" Text="Line color N=N(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button Grid.Column="2" x:Name="button_line_color_33" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" HorizontalContentAlignment="Center" Background="{Binding ColorBrush33}" Click="button_line_color_3_Click" >
-                                            <Button.Content>
-                                                <TextBlock TextWrapping="Wrap" Text="Line color eff=eff(Q)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
-                                            </Button.Content>
-                                        </Button>
-                                    </Grid>
-                                    <Button x:Name="button_make_table3" Content="Digitize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,1,2,1" FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA"  Click="button_make_table_Click" />
-                                </StackPanel>
-                            </Border>
-
-                            <Border Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" CornerRadius="2,2,2,2">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="2" Text="View dependencies" FontWeight="Normal" FontFamily="Cambria" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                            <ColumnDefinition Width="0.33*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <CheckBox Grid.Column="0" Content="H=H(Q)" ClickMode="Press" IsChecked="{Binding HIsChecked3}" />
-                                        <CheckBox Grid.Column="1" Content="N=N(Q)"  ClickMode="Press" IsChecked="{Binding NIsChecked3}" />
-                                        <CheckBox Grid.Column="2" Content="eff=eff(Q)"  ClickMode="Press" IsChecked="{Binding EffIsChecked3}" />
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </TabItem>
-                    <TabItem Header="Table">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="0.05*"/>
-                            </Grid.RowDefinitions>
-
-                            <DataGrid Grid.Row="0"  x:Name="ImageParsedGrid3" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" IsReadOnly="True"
-                            RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding Table3}">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="№" Binding="{Binding id}" Width="0.2*" />
-                                    <DataGridTextColumn Header="Q,m3/day" Binding="{Binding power, Converter={StaticResource precisionConverter} }" Width="0.3*" />
-                                    <DataGridTextColumn Header="H,m" Binding="{Binding height, Converter={StaticResource precisionConverter} }" Width="0.25*" />
-                                    <DataGridTextColumn Header="N,kWt" Binding="{Binding kilowats, Converter={StaticResource precisionConverter} }" Width="0.3*" />
-                                    <DataGridTextColumn Header="eff,%" Binding="{Binding efficiency, Converter={StaticResource precisionConverter}}" Width="0.25*" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <Border Grid.Row="1" Background="#FFD9D9D9" BorderBrush="Gainsboro" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="2,2,2,2" Margin="0,2,0,0">
-                                <Button Content="Download CSV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  FontSize="12" HorizontalContentAlignment="Center" Background="#FFEEEAEA" Click="button_download_csv_Click" />
-                            </Border>
-                        </Grid>
-
-
-
-
-                    </TabItem>
-                </TabControl>
-                <services:ImageColorPicker Source="{Binding Image3}"  Grid.Column="3" x:Name="imgPhoto3"  Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,59,0,0" Grid.Row="1"/>
-                <Canvas 
-                    Grid.Column="3" 
-                    Grid.RowSpan="2"
-                    x:Name="Canvas3"
-                >
-                </Canvas>
-
+                
+                <services:ImageColorPicker Source="{Binding Image2}"  Grid.Column="3" x:Name="imgPhoto2"  Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0"/>
+                <Canvas Grid.Column="3" x:Name="Canvas2"/>
 
             </Grid>
         </TabItem>

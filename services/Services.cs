@@ -170,6 +170,17 @@ namespace Aggregator.services
 
             return new Tuple<double, double, double, double>(kq, kh, kn, keff);
         }
+        public Tuple<double, double, double, double, double> CalculateCoefs(SemPlotParams MaxParams, SemPlotParams MinParams, System.Windows.Point Origin, System.Windows.Point X, System.Windows.Point Y)
+        {
+            var DeltaY = Origin.Y - Y.Y;
+            var kq = (MaxParams.power - MinParams.power) / (X.X - Origin.X);
+            var ks = (MaxParams.s - MinParams.s) / DeltaY;
+            var ki = (MaxParams.i - MinParams.i) / DeltaY;
+            var keff = (MaxParams.efficiency - MinParams.efficiency) / DeltaY;
+            var kcos = (Math.Cos(MaxParams.efficiency) - Math.Cos(MinParams.efficiency)) / DeltaY;
+
+            return new Tuple<double, double, double, double, double>(kq, ks, ki, keff, kcos);
+        }
 
         public List<PlotParams> PopulateTable(double[] Q, double[] H, double[] N, double[] Eff, Tuple<double, double, double, double> coefs, double DeltaPower, double DeltaY)
         {
@@ -189,11 +200,36 @@ namespace Aggregator.services
 
             return table;
         }
+        public List<SemPlotParams> PopulateSemTable(double[] Q, double[] S, double[] I, double[] Eff, double[] Cos, Tuple<double, double, double, double, double> coefs, double DeltaX, double DeltaY)
+        {
+            var (kq, ks, ki, keff, _) = coefs;
+
+            var table = new List<SemPlotParams>();
+            for (int i = 0; i < Q.Length; i++)
+            {
+                var data = new SemPlotParams();
+                data.id = i + 1;
+                data.power = (float)((Q[i] - DeltaX) * kq);
+                data.s = (float)((S[i] - DeltaY) * ks);
+                data.i = (float)((I[i] - DeltaY) * ki);
+                data.efficiency = (float)((Eff[i] - DeltaY) * keff);
+                data.cos = (float)Math.Cos(data.efficiency);
+                table.Add(data);
+            }
+
+            return table;
+        }
         public void SaveDataToCsv(StreamWriter writer, List<PlotParams> data)
         {
             writer.WriteLine("№;Q;H;N;Eff");
             foreach (PlotParams param in data)
                 writer.WriteLine($"{param.id};{param.power};{param.height};{param.kilowats};{param.efficiency}");
+        }
+        public void SaveDataToCsv(StreamWriter writer, List<SemPlotParams> data)
+        {
+            writer.WriteLine("№;N;S;I;Eff;CosF");
+            foreach (SemPlotParams param in data)
+                writer.WriteLine($"{param.id};{param.power};{param.s};{param.i};{param.efficiency};{param.cos}");
         }
 
     }
