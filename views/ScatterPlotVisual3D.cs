@@ -52,7 +52,7 @@ namespace Aggregator
             // Default configuration:
             AxisLabels = "X,Y,Z";
             BoundingBox = new Rect3D(0, 0, 0, 100, 100, 50);
-            TickSize = 10;
+            TickSize = 50;
             MinDistance = 0.1;
             DecimalPlaces = 1;
             Background = Brushes.White;
@@ -120,7 +120,7 @@ namespace Aggregator
                 grid.MajorDistance = bbSize;
                 grid.Thickness = lineThickness;
                 grid.Fill = AxisBrush;
-                //Children.Add(grid);
+                Children.Add(grid);
 
             }
 
@@ -175,8 +175,46 @@ namespace Aggregator
                 box.BoundingBox = BoundingBox;
                 box.Thickness = 1;
                 box.Color = AxisBrush.Color;
-                //Children.Add(box);
+                Children.Add(box);
             }
+
+            var cordOffset = labelOffset / 2;
+
+            for (double x = 0; x <= BoundingBox.SizeX; x += labelOffset)
+            {
+                var cord = new BillboardTextVisual3D();
+                cord.Text = ((Int32)x).ToString();
+                cord.FontWeight = FontWeights.Regular;
+                cord.FontSize = 8;
+                cord.Foreground = Brushes.Black;
+                cord.Position = new Point3D((Int32)x, -cordOffset, -cordOffset);
+                Children.Add(cord);
+            }
+
+            for (double y = 0; y <= BoundingBox.SizeY; y += labelOffset)
+            {
+                var cord = new BillboardTextVisual3D();
+                cord.Text = ((Int32)y).ToString();
+                cord.FontWeight = FontWeights.Regular;
+                cord.FontSize = 8;
+                cord.Foreground = Brushes.Black;
+                cord.Position = new Point3D(-cordOffset, (Int32)y, -cordOffset);
+                Children.Add(cord);
+            }
+
+
+            for (double z = 0; z <= BoundingBox.SizeZ; z += labelOffset)
+            {
+                var cord = new BillboardTextVisual3D();
+                cord.Text = ((Int32)z).ToString();
+                cord.FontSize = 8;
+                cord.FontWeight = FontWeights.Regular;
+                cord.Foreground = Brushes.Black;
+                cord.Position = new Point3D(-cordOffset, -cordOffset, (Int32)z);
+                Children.Add(cord);
+            }
+
+
 
             if (Elements.HasFlag(EElements.Marker))
             {

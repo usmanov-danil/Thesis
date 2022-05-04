@@ -15,7 +15,7 @@ namespace Aggregator.communicators
         {
             Point3D[] data = new Point3D[x.Length];
             for (int i = 0; i < x.Length; i++)
-                data[i] = new Point3D(x[i], y[i], z[i]);
+                data[i] = new Point3D(x[i], -y[i], z[i]);   // dirty hack with y
             return data;
         }
 

@@ -177,7 +177,7 @@ namespace Aggregator.services
             var ks = (MaxParams.s - MinParams.s) / DeltaY;
             var ki = (MaxParams.i - MinParams.i) / DeltaY;
             var keff = (MaxParams.efficiency - MinParams.efficiency) / DeltaY;
-            var kcos = (Math.Cos(MaxParams.efficiency) - Math.Cos(MinParams.efficiency)) / DeltaY;
+            var kcos = (MaxParams.cos - MinParams.cos) / DeltaY;
 
             return new Tuple<double, double, double, double, double>(kq, ks, ki, keff, kcos);
         }
@@ -202,8 +202,7 @@ namespace Aggregator.services
         }
         public List<SemPlotParams> PopulateSemTable(double[] Q, double[] S, double[] I, double[] Eff, double[] Cos, Tuple<double, double, double, double, double> coefs, double DeltaX, double DeltaY)
         {
-            var (kq, ks, ki, keff, _) = coefs;
-
+            var (kq, ks, ki, keff, kcos) = coefs;
             var table = new List<SemPlotParams>();
             for (int i = 0; i < Q.Length; i++)
             {
@@ -213,7 +212,7 @@ namespace Aggregator.services
                 data.s = (float)((S[i] - DeltaY) * ks);
                 data.i = (float)((I[i] - DeltaY) * ki);
                 data.efficiency = (float)((Eff[i] - DeltaY) * keff);
-                data.cos = (float)Math.Cos(data.efficiency);
+                data.cos = (float)((Cos[i] - DeltaY) * kcos);
                 table.Add(data);
             }
 

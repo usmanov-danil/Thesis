@@ -477,6 +477,7 @@
                                             <ColumnDefinition Width="0.25*" />
                                             <ColumnDefinition Width="0.25*" />
                                             <ColumnDefinition Width="0.3*" />
+                                            <ColumnDefinition Width="0.3*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="0.33*" />
@@ -488,7 +489,8 @@
                                         <TextBlock Grid.Row="0" Grid.Column="1" Text="N, kWt" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="S, d.e." FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBlock Grid.Row="0" Grid.Column="3" Text="I, A" FontWeight="Bold" FontFamily="Cambria" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
-                                        <TextBlock Grid.Row="0" Grid.Column="4" Text="efficiency %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="4" Text="eff %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
+                                        <TextBlock Grid.Row="0" Grid.Column="5" Text="CosF %" FontWeight="Bold" FontFamily="Cambria" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" />
                                         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
                                                 <Binding Path="MinPlotParams2.power">
@@ -525,6 +527,15 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MinPlotParams2.cos">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                         <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0">
                                             <TextBox.Text>
                                                 <Binding Path="MaxPlotParams2.power">
@@ -555,6 +566,15 @@
                                         <TextBox Grid.Row="5" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
                                             <TextBox.Text>
                                                 <Binding Path="MaxPlotParams2.efficiency">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1,0,1,0" >
+                                            <TextBox.Text>
+                                                <Binding Path="MaxPlotParams2.cos">
                                                     <Binding.ValidationRules>
                                                         <ExceptionValidationRule />
                                                     </Binding.ValidationRules>
